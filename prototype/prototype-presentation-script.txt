@@ -1,0 +1,35 @@
+Prototype Presentation Rough Script:
+
+1.) Begin presentation, short overview, vision, etc.
+
+2.) Open Application, no entries currently, talk about available options here.
+
+3.) Let's go through adding a board game to the catalog.
+	3.a.) Add title, image, any notes.
+	3.b.) Let's add some tags to our board game, to make it easier to find later.
+		3.b.i.) Briefly talk about predefined tags.
+		3.b.ii.) We can create our own tags here, and they will be added to a list of custom tags.
+		3.b.iii.) Add custom tag to the entry, said tag now available for future entries.
+		3.b.iv.) Create new custom tag briefly, show that you can edit and delete user-created tags whenever.
+	3.c.) Confirm creation, check on the catalog and see the entry on the main catalog.
+
+4.) Click new entry and check its contents.
+	4.a.) Show editing capabilities within the entry.
+	4.b.) Show that you can also edit the entry on the main catalog with the edit button.
+
+5.) Quickly add another (maybe even two more?) entry with different data to showcase later features.
+
+6.) Show Sort options and sort catalog.
+
+7.) Showcase Search capability.
+
+8.) Showcase entry deletion. 
+
+
+Script Jobs:
+
+Chris:
+
+Eryk:
+
+Marc:
