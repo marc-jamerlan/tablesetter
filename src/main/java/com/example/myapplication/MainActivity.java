@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import com.example.myapplication.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -71,12 +70,24 @@ public class MainActivity extends AppCompatActivity {
     public void createlist(){
         //this is for the catolog
         catolog = new ArrayList<>();
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game1","Cool","Shit Game",
-                "Yolo"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game2","Cool","Shit Game",
-                "Yolo"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game3","Cool","Shit Game",
-                "Yolo"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game1","tag","tag",
+                "tag"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game2","tag","tag",
+                "tag"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game3","tag","tag",
+                "tag"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game4","tag","tag",
+                "tag"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game5","tag","tag",
+                "tag"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game6","tag","tag",
+                "tag"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game7","tag","tag",
+                "tag"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game8","tag","tag",
+                "tag"));
+        catolog.add(new Game(R.drawable.ic_launcher_background,"Please","Help","They are",
+                "Watching"));
 
     }
 
