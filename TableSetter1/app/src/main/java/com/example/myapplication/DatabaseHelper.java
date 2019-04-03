@@ -64,6 +64,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public boolean updateGameData(int id, String name, int image, String notes)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL1, id);
+        values.put(COL2, name);
+        values.put(COL3, image);
+
+        //tag data needs updating
+
+        values.put(COL5, notes);
+
+        return db.update(TABLE_NAME_1, values, COL1 +  "=" + id, null) > 0;
+    }
+
     public void addTagData(Tags tag)
     {
         ContentValues values = new ContentValues();
@@ -76,6 +91,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME_2, null, values);
         db.close();
+    }
+
+    public boolean updateTagData(int id, String name, String notes)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL1, id);
+        values.put(COL2, name);
+        values.put(COL5, notes);
+
+        return db.update(TABLE_NAME_2, values, COL1 +  "=" + id, null) > 0;
     }
 
 }
