@@ -3,21 +3,25 @@ package com.example.myapplication;
 import java.util.ArrayList;
 
 public class Game {
-    private int gameImage;
+    private int ID;
     private String name;
-    private ArrayList<Tags> tagArray;
-    private String tag1;
-    private String tag2;
-    private String tag3;
+    private int gameImage;
+    private ArrayList<Tags> tagArray; // change this to an array of tag IDs perhaps?
+    private String notes;
 
-    public Game(int a, String b, String c, String d, String e){
+    public Game(int id, int a, String b, String notes){
+        this.ID = id;
         this.gameImage = a;
         this.name = b;
         this.tagArray = new ArrayList<>();
-        this.tag1 = c;
-        this.tag2 = d;
-        this.tag3 = e;
+        this.notes = notes;
     }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int id) { this.ID = id; }
 
     public int getGameImage() {
         return gameImage;
@@ -33,34 +37,15 @@ public class Game {
         this.name = name;
     }
 
-    public String getTag1() {
-        return tag1;
-    }
-
-    public void setTag1(String tag1) {
-        this.tag1 = tag1;
-    }
-
-    public String getTag2() {
-        return tag2;
-    }
-
-    public void setTag2(String tag2) {
-        this.tag2 = tag2;
-    }
-
-    public String getTag3() {
-        return tag3;
-    }
-
-    public void setTag3(String tag3) {
-        this.tag3 = tag3;
-    }
-
     public void setTagArray(Tags tag){this.tagArray.add(tag);}
 
-    public ArrayList<Tags> getTagArray(){
-        return this.tagArray;
+    // not done here, revisit
+    public ArrayList<Tags> getTagArray()
+    {
+        return tagArray;
     }
 
+    public String getNotes() { return notes; }
+
+    public void setNotes(String notes) { this.notes = notes; }
 }

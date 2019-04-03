@@ -67,6 +67,8 @@ public class catalogAdapter extends RecyclerView.Adapter<catalogAdapter.catalogA
         return cah;
     }
 
+
+    // TODO - MODIFY TO PULL FROM DB
     @Override
     public void onBindViewHolder(@NonNull catalogAdapterHolder catalogAdapterHolder, int i) {
         Game currentGame = catalog.get(i);

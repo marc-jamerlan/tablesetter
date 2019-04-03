@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -64,9 +65,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         return super.onOptionsItemSelected(item);
     }
 
+    //TODO - MODIFY TO PUT INTO DB
     public void createlist(){
         //this is for the catolog
         catolog = new ArrayList<>();
+
+        /*
         catolog.add(new Game(R.drawable.ic_launcher_background,"New Game1","tag","tag",
                 "tag"));
         catolog.add(new Game(R.drawable.ic_launcher_background,"New Game2","tag","tag",
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 "tag"));
         catolog.add(new Game(R.drawable.ic_launcher_background,"Please","Help","They are",
                 "Watching"));
-
+        */
     }
 
     public void createrecycler(){
