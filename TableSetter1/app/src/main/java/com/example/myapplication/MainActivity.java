@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     //TODO - MODIFY TO PUT INTO DB
 
 
-
     public void createlist(){
         //this is for the catolog
         catolog = new ArrayList<>();
@@ -86,10 +85,16 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             Game currentGame = dbHelper.fetchGameData(gameNameList.getGameNameList().get(i));
             catolog.add(currentGame);
         }
+
     }
 
     public void createrecycler(){
         //recylceview is here
+
+        Game game = new Game(1,0, "Test Game", "Description here.");
+
+        catolog.add(game);
+
         mCatolog = findViewById(R.id.recylceview);
         mCatolog.setHasFixedSize(true);
         mlayout = new LinearLayoutManager(this);
@@ -148,6 +153,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.new_game:
                 Toast.makeText(this,"clicked new game",Toast.LENGTH_SHORT).show();
                 open(Add_andor_edit.class);
+                return true;
+            case R.id.refresh:
+                createlist();
+                createrecycler();
+                mAdapter.notifyDataSetChanged();
                 return true;
 
             default:

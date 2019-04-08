@@ -48,6 +48,8 @@ public class Add_andor_edit extends AppCompatActivity {
 
                 dbHelper.addGameData(newGame);
 
+
+
                 open(MainActivity.class);
             }
         });

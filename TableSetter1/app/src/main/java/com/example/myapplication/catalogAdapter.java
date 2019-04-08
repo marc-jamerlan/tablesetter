@@ -83,5 +83,7 @@ public class catalogAdapter extends RecyclerView.Adapter<catalogAdapter.catalogA
     public int getItemCount() {
         return catalog.size();
     }
+
+
 }
 

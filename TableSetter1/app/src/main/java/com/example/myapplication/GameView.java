@@ -7,6 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameView extends AppCompatActivity {
@@ -14,6 +17,8 @@ public class GameView extends AppCompatActivity {
     private tagAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
     private Game gameEntery;
+
+    final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +28,19 @@ public class GameView extends AppCompatActivity {
         Intent intent = getIntent();
         this.gameEntery = intent.getParcelableExtra("Game");
 
-        //Button submit = findViewById(R.id.button);
-        //Button Delete = findViewById(R.id.button2);
+
+        ImageView edit = findViewById(R.id.imageView3);
+        ImageView  Delete = findViewById(R.id.imageView4);
+
+        ImageView pic = findViewById(R.id.imageView5);
+
+        TextView name = findViewById(R.id.textView5);
+
+        TextView summary = findViewById(R.id.textView8);
+
+        name.setText(this.gameEntery.getName());
+
+        summary.setText(this.gameEntery.getNotes());
 
     }
 
@@ -56,8 +72,21 @@ public class GameView extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void closePopup(){
-        open(MainActivity.class);
-        closePopup();
+
+    public void close(){
+        /*open(MainActivity.class);*/
+        finish();
+    }
+
+    public void edit(){
+        Intent intent = new Intent(this,Add_andor_edit.class);
+        intent.putExtra("Game",gameEntery);
+        startActivity(intent);
+    }
+
+    public void delete(){
+        Intent intent = new Intent(this,MainActivity.class);
+        dbHelper.deleteTagData(gameEntery.getID());
+        startActivity(intent);
     }
 }
