@@ -75,9 +75,12 @@ public class catalogAdapter extends RecyclerView.Adapter<catalogAdapter.catalogA
 
         catalogAdapterHolder.mImageView.setImageResource(currentGame.getGameImage());
         catalogAdapterHolder.gameName.setText(currentGame.getName());
+
+        /*
         catalogAdapterHolder.tag1.setText(currentGame.getTag1());
         catalogAdapterHolder.tag2.setText(currentGame.getTag2());
         catalogAdapterHolder.tag3.setText(currentGame.getTag3());
+        */
 
     }
 

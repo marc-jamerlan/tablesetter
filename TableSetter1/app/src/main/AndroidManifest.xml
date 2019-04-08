@@ -3,6 +3,7 @@
     package="com.example.myapplication">
 
     <application
+        android:name="com.example.myapplication.GameNameList"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="TableSetter"

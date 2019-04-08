@@ -5,7 +5,9 @@ public class Tags {
     private String name;
     private String notes;
 
-    public void Tags(int id, String name, String notes)
+    public Tags(){}
+
+    public Tags(int id, String name, String notes)
     {
         this.ID = id;
         this.name = name;

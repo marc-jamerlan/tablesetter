@@ -9,6 +9,8 @@ public class Game {
     private ArrayList<Tags> tagArray; // change this to an array of tag IDs perhaps?
     private String notes;
 
+    public Game(){}
+
     public Game(int id, int a, String b, String notes){
         this.ID = id;
         this.gameImage = a;

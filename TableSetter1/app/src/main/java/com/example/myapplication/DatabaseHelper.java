@@ -79,6 +79,62 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.update(TABLE_NAME_1, values, COL1 +  "=" + id, null) > 0;
     }
 
+
+    //TODO
+    public Game fetchGameData(String gameName)
+    {
+        String query = "SELECT*FROM" + TABLE_NAME_1 + "WHERE" + COL2 + " = " + "'"
+                + gameName + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Game game = new Game();
+
+        if (cursor.moveToFirst())
+        {
+            cursor.moveToFirst();
+
+            game.setID(Integer.parseInt(cursor.getString(0)));
+            game.setName(cursor.getString(1));
+
+            //TODO - fetch images and taglist
+
+            game.setNotes(cursor.getString(3)); // change to 4 once others are added
+
+            cursor.close();
+        }
+
+        else
+        {
+            game = null;
+        }
+
+        db.close();
+        return game;
+    }
+
+    public boolean deleteGameData(int id)
+    {
+        boolean result = false;
+        String query = "SELECT * FROM" + TABLE_NAME_1 + "WHERE" + COL1 + "= '" + String.valueOf(id) + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Game game = new Game();
+
+        if(cursor.moveToFirst())
+        {
+            game.setID(Integer.parseInt(cursor.getString(0)));
+            db.delete(TABLE_NAME_1, COL1 + "=?",
+                    new String[] {String.valueOf(game.getID())});
+            cursor.close();
+            result = true;
+        }
+
+        db.close();
+
+        return result;
+    }
+
     public void addTagData(Tags tag)
     {
         ContentValues values = new ContentValues();
@@ -86,7 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL2, tag.getName());
         values.put(COL5, tag.getNotes());
 
-        //TODO - see above
+        //TODO - see addGameData() above
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME_2, null, values);
@@ -102,6 +158,58 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL5, notes);
 
         return db.update(TABLE_NAME_2, values, COL1 +  "=" + id, null) > 0;
+    }
+
+    // TODO - perhaps change parameter from tagname to id?
+    public Tags fetchTagData(String tagName)
+    {
+        String query = "SELECT*FROM" + TABLE_NAME_2 + "WHERE" + COL2 + " = " + "'"
+                + tagName + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Tags tag = new Tags();
+
+        if (cursor.moveToFirst())
+        {
+            cursor.moveToFirst();
+
+            tag.setID(Integer.parseInt(cursor.getString(0)));
+            tag.setName(cursor.getString(1));
+            tag.setNotes(cursor.getString(2));
+
+            cursor.close();
+        }
+
+        else
+        {
+            tag = null;
+        }
+
+        db.close();
+        return tag;
+    }
+
+    public boolean deleteTagData(int id)
+    {
+        boolean result = false;
+        String query = "SELECT*FROM" + TABLE_NAME_2 + "WHERE" + COL1 + "= '" + String.valueOf(id) + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Tags tag = new Tags();
+
+        if(cursor.moveToFirst())
+        {
+            tag.setID(Integer.parseInt(cursor.getString(0)));
+            db.delete(TABLE_NAME_2, COL1 + "=?",
+                    new String[] {String.valueOf(tag.getID())});
+            cursor.close();
+            result = true;
+        }
+
+        db.close();
+
+        return result;
     }
 
 }
