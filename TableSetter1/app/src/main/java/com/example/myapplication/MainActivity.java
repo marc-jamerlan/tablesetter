@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private RecyclerView.LayoutManager mlayout;
     private Dialog myDialog;
 
+    final GameNameList gameNameList = new GameNameList();
+    final DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +42,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         myDialog = new Dialog(this);
 
-       createlist();
+       if(gameNameList.getLength() > 0)
+       {
+           createlist();
 
-       createrecycler();
+           createrecycler();
+       }
 
     }
 
@@ -66,30 +74,18 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     //TODO - MODIFY TO PUT INTO DB
+
+
+
     public void createlist(){
         //this is for the catolog
         catolog = new ArrayList<>();
 
-        /*
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game1","tag","tag",
-                "tag"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game2","tag","tag",
-                "tag"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game3","tag","tag",
-                "tag"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game4","tag","tag",
-                "tag"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game5","tag","tag",
-                "tag"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game6","tag","tag",
-                "tag"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game7","tag","tag",
-                "tag"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"New Game8","tag","tag",
-                "tag"));
-        catolog.add(new Game(R.drawable.ic_launcher_background,"Please","Help","They are",
-                "Watching"));
-        */
+        for(int i = 0; i < gameNameList.getLength(); i++)
+        {
+            Game currentGame = dbHelper.fetchGameData(gameNameList.getGameNameList().get(i));
+            catolog.add(currentGame);
+        }
     }
 
     public void createrecycler(){
@@ -151,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (item.getItemId()){
             case R.id.new_game:
                 Toast.makeText(this,"clicked new game",Toast.LENGTH_SHORT).show();
+                open(Add_andor_edit.class);
                 return true;
 
             default:

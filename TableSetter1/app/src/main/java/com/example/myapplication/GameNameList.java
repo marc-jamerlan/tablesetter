@@ -17,6 +17,11 @@ public class GameNameList extends Application
         return nameArray;
     }
 
+    public int getLength()
+    {
+        return nameArray.size();
+    }
+
     public void appendList(String name)
     {
         this.nameArray.add(name);

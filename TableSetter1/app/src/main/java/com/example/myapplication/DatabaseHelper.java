@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 4);
     }
 
 
@@ -36,12 +36,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String CREATE_TABLE1 = "CREATE TABLE" + TABLE_NAME_1 + "(" + COL1 + "INTEGER PRIMARYKEY,"
-                + COL2 + "TEXT," + COL3 + "BLOB," + COL4 + "TEXT," + COL5 + "TEXT )";
+        String CREATE_TABLE1 = "CREATE TABLE " + TABLE_NAME_1 + "(" + COL1 + " INTEGER,"
+                + COL2 + " TEXT," + COL3 + " BLOB," + COL4 + " TEXT," + COL5 + " TEXT);";
         db.execSQL(CREATE_TABLE1);
 
-        String CREATE_TABLE2 = "CREATE TABLE" + TABLE_NAME_2 + "(" + COL1 + "INTEGER PRIMARYKEY,"
-                + COL2 + "TEXT" + COL5 + "TEXT )";
+        String CREATE_TABLE2 = "CREATE TABLE " + TABLE_NAME_2 + "(" + COL1 + " INTEGER,"
+                + COL2 + " TEXT," + COL5 + " TEXT);";
         db.execSQL(CREATE_TABLE2);
 
     }
