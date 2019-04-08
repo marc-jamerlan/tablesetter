@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private RecyclerView.LayoutManager mlayout;
     private Dialog myDialog;
 
+    final DatabaseHelper dbHelper = new DatabaseHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void open(Class des){
         Intent intent = new Intent(this,des);
+
         Game game = new Game(0,R.drawable.ic_launcher_background,"New Game1","Summary here");
 
         for(int i = 0; i < tagList.size(); i++){

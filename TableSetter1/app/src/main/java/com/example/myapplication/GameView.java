@@ -18,6 +18,8 @@ public class GameView extends AppCompatActivity {
     private RecyclerView.LayoutManager mlayout;
     private Game gameEntery;
 
+    final DatabaseHelper dbHelper = new DatabaseHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +83,12 @@ public class GameView extends AppCompatActivity {
     public void edit(){
         Intent intent = new Intent(this,Add_andor_edit.class);
         intent.putExtra("Game",gameEntery);
+        startActivity(intent);
+    }
+
+    public void delete(){
+        Intent intent = new Intent(this,MainActivity.class);
+        dbHelper.deleteTagData(gameEntery.getID());
         startActivity(intent);
     }
 }
