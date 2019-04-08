@@ -23,6 +23,11 @@ public class Add_andor_edit extends AppCompatActivity {
 
         Button submit = findViewById(R.id.editSub);
 
+        Intent intent = getIntent();
+        this.gameEntery = intent.getParcelableExtra("Game");
+
+
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
