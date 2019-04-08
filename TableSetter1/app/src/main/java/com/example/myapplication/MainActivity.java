@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private  ArrayList<Game> catolog; // needs to be public perhaps?
+    private  ArrayList<Tags> tagList;
     private RecyclerView mCatolog;
     private catalogAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
@@ -65,7 +66,27 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         return super.onOptionsItemSelected(item);
     }
 
+    public void createtagList(){
+        tagList = new ArrayList<>();
+
+        tagList.add(new Tags(0,"Casual"," "));
+
+        tagList.add(new Tags(1,"Hardcore"," "));
+
+        tagList.add(new Tags(2,"Card Game"," "));
+
+        tagList.add(new Tags(3,"Hex and Tile"," "));
+
+        tagList.add(new Tags(4,"Deck Builder"," "));
+
+        tagList.add(new Tags(5,"Co-op"," "));
+
+        tagList.add(new Tags(6,"Competitive"," "));
+    }
+
     //TODO - MODIFY TO PUT INTO DB
+
+
     public void createlist(){
         //this is for the catolog
         catolog = new ArrayList<>();
@@ -122,6 +143,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void open(Class des){
         Intent intent = new Intent(this,des);
+        Game game = new Game(0,R.drawable.ic_launcher_background,"New Game1",tagList);
+
+        intent.putExtra("Game",game);
         startActivity(intent);
     }
 
@@ -150,7 +174,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.new_game:
-                Toast.makeText(this,"clicked new game",Toast.LENGTH_SHORT).show();
+                open(Add_andor_edit.class);
+
                 return true;
 
             default:
