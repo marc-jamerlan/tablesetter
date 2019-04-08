@@ -105,12 +105,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         mAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int itemPos) {
-                open(GameView.class);
+                openGame(GameView.class,catolog.get(itemPos));
+
             }
         });
 
 
 
+    }
+
+    public void openGame(Class des,Game game){
+        Intent intent = new Intent(this,des);
+        intent.putExtra("Game",game);
+        startActivity(intent);
     }
 
     public void open(Class des){

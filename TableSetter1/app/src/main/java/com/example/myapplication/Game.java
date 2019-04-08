@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements Parcelable {
     private int ID;
     private String name;
     private int gameImage;
@@ -16,6 +19,25 @@ public class Game {
         this.tagArray = new ArrayList<>();
         this.notes = notes;
     }
+
+    protected Game(Parcel in) {
+        ID = in.readInt();
+        name = in.readString();
+        gameImage = in.readInt();
+        notes = in.readString();
+    }
+
+    public static final Creator<Game> CREATOR = new Creator<Game>() {
+        @Override
+        public Game createFromParcel(Parcel in) {
+            return new Game(in);
+        }
+
+        @Override
+        public Game[] newArray(int size) {
+            return new Game[size];
+        }
+    };
 
     public int getID() {
         return ID;
@@ -48,4 +70,17 @@ public class Game {
     public String getNotes() { return notes; }
 
     public void setNotes(String notes) { this.notes = notes; }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ID);
+        dest.writeString(name);
+        dest.writeInt(gameImage);
+        dest.writeString(notes);
+    }
 }
