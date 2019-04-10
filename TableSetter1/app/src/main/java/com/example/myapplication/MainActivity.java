@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private RecyclerView.LayoutManager mlayout;
     private Dialog myDialog;
 
-    final GameNameList gameNameList = new GameNameList();
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
 
@@ -42,13 +41,16 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         myDialog = new Dialog(this);
 
-       if(gameNameList.getLength() > 0)
-       {
-           createlist();
+        GameNameList gameNameList = (GameNameList) getApplicationContext();
 
-           createrecycler();
-       }
+        if(gameNameList == null)
+        {
+            gameNameList = new GameNameList();
+        }
 
+        createlist();
+
+        createrecycler();
     }
 
     @Override
@@ -78,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void createlist(){
         //this is for the catolog
+
+        final GameNameList gameNameList = (GameNameList) getApplicationContext();
+
         catolog = new ArrayList<>();
 
         for(int i = 0; i < gameNameList.getLength(); i++)
@@ -90,10 +95,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void createrecycler(){
         //recylceview is here
-
-        Game game = new Game(1,0, "Test Game", "Description here.");
-
-        catolog.add(game);
 
         mCatolog = findViewById(R.id.recylceview);
         mCatolog.setHasFixedSize(true);
@@ -148,16 +149,20 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        createlist();
+        createrecycler();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.new_game:
                 Toast.makeText(this,"clicked new game",Toast.LENGTH_SHORT).show();
                 open(Add_andor_edit.class);
-                return true;
-            case R.id.refresh:
-                createlist();
-                createrecycler();
-                mAdapter.notifyDataSetChanged();
                 return true;
 
             default:

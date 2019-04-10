@@ -83,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //TODO
     public Game fetchGameData(String gameName)
     {
-        String query = "SELECT*FROM" + TABLE_NAME_1 + "WHERE" + COL2 + " = " + "'"
+        String query = "SELECT*FROM" + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "'"
                 + gameName + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -98,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             //TODO - fetch images and taglist
 
-            game.setNotes(cursor.getString(3)); // change to 4 once others are added
+            game.setNotes(cursor.getString(4));
 
             cursor.close();
         }
@@ -115,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean deleteGameData(int id)
     {
         boolean result = false;
-        String query = "SELECT * FROM" + TABLE_NAME_1 + "WHERE" + COL1 + "= '" + String.valueOf(id) + "'";
+        String query = "SELECT * FROM" + TABLE_NAME_1 + " WHERE " + COL1 + "= '" + String.valueOf(id) + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);

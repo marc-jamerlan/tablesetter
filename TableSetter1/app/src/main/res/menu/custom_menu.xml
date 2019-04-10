@@ -5,9 +5,6 @@
     <item
         android:id="@+id/new_game"
         android:title="Add New Game" />
-    <item
-        android:id="@+id/refresh"
-        android:title="Refresh Catalog" />
 
 
 </menu>

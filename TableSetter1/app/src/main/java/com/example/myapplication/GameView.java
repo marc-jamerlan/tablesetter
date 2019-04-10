@@ -29,8 +29,18 @@ public class GameView extends AppCompatActivity {
         this.gameEntery = intent.getParcelableExtra("Game");
 
 
-        ImageView edit = findViewById(R.id.imageView3);
-        ImageView  Delete = findViewById(R.id.imageView4);
+        ImageButton edit = findViewById(R.id.editButton);
+
+        edit.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                edit();
+            }
+        });
+
+        ImageButton Delete = findViewById(R.id.imageView3);
 
         ImageView pic = findViewById(R.id.imageView5);
 
@@ -74,7 +84,7 @@ public class GameView extends AppCompatActivity {
 
 
     public void close(){
-        /*open(MainActivity.class);*/
+        //open(MainActivity.class);
         finish();
     }
 
@@ -86,7 +96,7 @@ public class GameView extends AppCompatActivity {
 
     public void delete(){
         Intent intent = new Intent(this,MainActivity.class);
-        dbHelper.deleteTagData(gameEntery.getID());
+        dbHelper.deleteGameData(gameEntery.getID());
         startActivity(intent);
     }
 }

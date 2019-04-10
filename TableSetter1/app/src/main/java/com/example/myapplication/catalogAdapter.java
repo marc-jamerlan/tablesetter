@@ -73,7 +73,7 @@ public class catalogAdapter extends RecyclerView.Adapter<catalogAdapter.catalogA
     public void onBindViewHolder(@NonNull catalogAdapterHolder catalogAdapterHolder, int i) {
         Game currentGame = catalog.get(i);
 
-        catalogAdapterHolder.mImageView.setImageResource(currentGame.getGameImage());
+        //catalogAdapterHolder.mImageView.setImageResource(currentGame.getGameImage());
         catalogAdapterHolder.gameName.setText(currentGame.getName());
 
 
