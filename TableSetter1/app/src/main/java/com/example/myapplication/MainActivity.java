@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         GameNameList gameNameList = (GameNameList) getApplicationContext();
 
+        String tableData = dbHelper.loadGameData();
+
+        //TODO - fix loadGameData to only load names; append names to gameNameList
+
         if(gameNameList == null)
         {
             gameNameList = new GameNameList();
@@ -161,10 +165,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.new_game:
-                Toast.makeText(this,"clicked new game",Toast.LENGTH_SHORT).show();
                 open(Add_andor_edit.class);
                 return true;
 
+            case R.id.clear:
+                Toast.makeText(this,"Cleared the database",Toast.LENGTH_SHORT).show();
+                dbHelper.clearGameData();
             default:
                 return false;
 

@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, 4);
+        super(context, DATABASE_NAME, null, 5);
     }
 
 
@@ -36,20 +36,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String CREATE_TABLE1 = "CREATE TABLE " + TABLE_NAME_1 + "(" + COL1 + " INTEGER,"
+        String CREATE_TABLE1 = "CREATE TABLE " + TABLE_NAME_1 + "(" + COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL2 + " TEXT," + COL3 + " BLOB," + COL4 + " TEXT," + COL5 + " TEXT);";
         db.execSQL(CREATE_TABLE1);
 
-        String CREATE_TABLE2 = "CREATE TABLE " + TABLE_NAME_2 + "(" + COL1 + " INTEGER,"
+        String CREATE_TABLE2 = "CREATE TABLE " + TABLE_NAME_2 + "(" + COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL2 + " TEXT," + COL5 + " TEXT);";
         db.execSQL(CREATE_TABLE2);
 
     }
 
+
+    /***GAME TABLE***/
+
+
     public void addGameData(Game game)
     {
         ContentValues values = new ContentValues();
-        values.put(COL1, game.getID());
         values.put(COL2, game.getName());
         values.put(COL3, game.getGameImage());
 
@@ -64,11 +67,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public String loadGameData()
+    {
+        String result = "";
+        String query = "Select*FROM " + TABLE_NAME_1;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        while(cursor.moveToNext())
+        {
+            int result0 = cursor.getInt(0);
+            String result1 = cursor.getString(1);
+            result += String.valueOf(result0) + " " + result1 + ";";
+        }
+
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+    public void clearGameData()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_NAME_1);
+
+        db.close();
+    }
+
     public boolean updateGameData(int id, String name, int image, String notes)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL1, id);
         values.put(COL2, name);
         values.put(COL3, image);
 
@@ -135,6 +165,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+
+    /***TAG TABLE***/
+
+
     public void addTagData(Tags tag)
     {
         ContentValues values = new ContentValues();
@@ -146,6 +180,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME_2, null, values);
+        db.close();
+    }
+
+    //TODO - implement loadTagData() and clearTagData
+    public String loadTagData()
+    {
+        return null;
+    }
+
+    public void clearTagData()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_NAME_2);
+
         db.close();
     }
 

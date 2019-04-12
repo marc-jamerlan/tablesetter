@@ -5,6 +5,9 @@
     <item
         android:id="@+id/new_game"
         android:title="Add New Game" />
+    <item
+        android:id="@+id/clear"
+        android:title="DEBUG: Clear Database" />
 
 
 </menu>

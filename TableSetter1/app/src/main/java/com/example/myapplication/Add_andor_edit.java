@@ -45,7 +45,6 @@ public class Add_andor_edit extends AppCompatActivity
                     String gameName = edit.getText().toString();
 
                     newGame.setName(gameName);
-                    newGame.setID(gameNameList.getLength());
                     gameNameList.appendList(gameName);
                     newGame.setNotes(edit2.getText().toString());
 
@@ -79,7 +78,6 @@ public class Add_andor_edit extends AppCompatActivity
                     {
                         if(oldName.equals(gameNameList.getGameNameList().get(i)))
                         {
-                            gameUpdate.setID(gameNameList.getLength());
                             gameNameList.getGameNameList().add(gameUpdate.getName());
                             gameNameList.getGameNameList().remove(i);
                             break;
