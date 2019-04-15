@@ -3,11 +3,13 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.ContentValues;
 
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper
+{
 
     private static final String DATABASE_NAME = "TableSetterDatabase";
 
@@ -74,11 +76,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-        while(cursor.moveToNext())
+        while (cursor.moveToNext())
         {
-            int result0 = cursor.getInt(0);
+            //int result0 = cursor.getInt(0);
             String result1 = cursor.getString(1);
-            result += String.valueOf(result0) + " " + result1 + ";";
+            result += result1 + ";";
         }
 
         cursor.close();
@@ -106,17 +108,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values.put(COL5, notes);
 
-        return db.update(TABLE_NAME_1, values, COL1 +  "=" + id, null) > 0;
+        return db.update(TABLE_NAME_1, values, COL1 + "=" + id, null) > 0;
     }
 
 
     //TODO
     public Game fetchGameData(String gameName)
     {
-        String query = "SELECT*FROM" + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "'"
-                + gameName + "'";
+        String query = "SELECT*FROM" + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "?";
+        /*String query = "SELECT*FROM" + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "'"
+            + gameName + "'";*/
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = db.rawQuery(query, new String[]{gameName});
         Game game = new Game();
 
         if (cursor.moveToFirst())
@@ -151,11 +154,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         Game game = new Game();
 
-        if(cursor.moveToFirst())
+        if (cursor.moveToFirst())
         {
             game.setID(Integer.parseInt(cursor.getString(0)));
             db.delete(TABLE_NAME_1, COL1 + "=?",
-                    new String[] {String.valueOf(game.getID())});
+                    new String[]{String.valueOf(game.getID())});
             cursor.close();
             result = true;
         }
@@ -206,7 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL2, name);
         values.put(COL5, notes);
 
-        return db.update(TABLE_NAME_2, values, COL1 +  "=" + id, null) > 0;
+        return db.update(TABLE_NAME_2, values, COL1 + "=" + id, null) > 0;
     }
 
     // TODO - perhaps change parameter from tagname to id?
@@ -247,11 +250,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         Tags tag = new Tags();
 
-        if(cursor.moveToFirst())
+        if (cursor.moveToFirst())
         {
             tag.setID(Integer.parseInt(cursor.getString(0)));
             db.delete(TABLE_NAME_2, COL1 + "=?",
-                    new String[] {String.valueOf(tag.getID())});
+                    new String[]{String.valueOf(tag.getID())});
             cursor.close();
             result = true;
         }

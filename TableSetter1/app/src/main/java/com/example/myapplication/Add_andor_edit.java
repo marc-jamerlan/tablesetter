@@ -29,6 +29,24 @@ public class Add_andor_edit extends AppCompatActivity
         final GameNameList gameNameList = (GameNameList) getApplicationContext();
         final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
+        edit.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                edit.getText().clear();
+            }
+        });
+
+        edit2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                edit2.getText().clear();
+            }
+        });
+
         Intent intent = getIntent();
         this.gameEntry = intent.getParcelableExtra("Game");
 
@@ -50,7 +68,7 @@ public class Add_andor_edit extends AppCompatActivity
 
                     dbHelper.addGameData(newGame);
 
-                    Toast.makeText(getApplicationContext(),"Game added",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Game added", Toast.LENGTH_SHORT).show();
 
                     open(MainActivity.class);
                 }
@@ -74,9 +92,9 @@ public class Add_andor_edit extends AppCompatActivity
                     gameUpdate.setName(edit.getText().toString());
                     gameUpdate.setNotes(edit2.getText().toString());
 
-                    for(int i = 0; i < gameNameList.getLength(); i++)
+                    for (int i = 0; i < gameNameList.getLength(); i++)
                     {
-                        if(oldName.equals(gameNameList.getGameNameList().get(i)))
+                        if (oldName.equals(gameNameList.getGameNameList().get(i)))
                         {
                             gameNameList.getGameNameList().add(gameUpdate.getName());
                             gameNameList.getGameNameList().remove(i);
@@ -89,14 +107,14 @@ public class Add_andor_edit extends AppCompatActivity
                             gameUpdate.getGameImage(),
                             gameUpdate.getNotes());
 
-                    if(updateFlag)
+                    if (updateFlag)
                     {
-                        Toast.makeText(getApplicationContext(),"Update successful",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Update successful", Toast.LENGTH_SHORT).show();
                         open(MainActivity.class);
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(),"Update failed, data unchanged",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Update failed, data unchanged", Toast.LENGTH_SHORT).show();
                         open(MainActivity.class);
                     }
                 }
@@ -136,5 +154,8 @@ public class Add_andor_edit extends AppCompatActivity
         startActivity(intent);
     }
 
-    public Game getGameEntry() {return gameEntry;}
+    public Game getGameEntry()
+    {
+        return gameEntry;
+    }
 }

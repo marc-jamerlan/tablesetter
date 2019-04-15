@@ -22,9 +22,9 @@ import java.sql.Array;
 import java.util.ArrayList;
 
 
-
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-    private  ArrayList<Game> catolog; // needs to be public perhaps?
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener
+{
+    private ArrayList<Game> catolog; // needs to be public perhaps?
     private RecyclerView mCatolog;
     private catalogAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
@@ -33,46 +33,37 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         myDialog = new Dialog(this);
 
-        GameNameList gameNameList = (GameNameList) getApplicationContext();
-
-        String tableData = dbHelper.loadGameData();
-
-        //TODO - fix loadGameData to only load names; append names to gameNameList
-
-        if(gameNameList == null)
-        {
-            gameNameList = new GameNameList();
-        }
-
         createlist();
-
         createrecycler();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
@@ -81,10 +72,34 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     //TODO - MODIFY TO PUT INTO DB
 
-
-    public void createlist(){
+    public void createlist()
+    {
         //this is for the catolog
 
+        GameNameList gameNameList = new GameNameList();
+
+        String tableData = dbHelper.loadGameData();
+
+        if (!tableData.equals(""))
+        {
+            String[] tableArray = tableData.split(";");
+
+            for (int i = 0; i < tableArray.length; i++)
+            {
+                gameNameList.appendList(tableArray[i]);
+            }
+        }
+
+        catolog = new ArrayList<>();
+
+        for (int i = 0; i < gameNameList.getLength(); i++)
+        {
+            Game currentGame = dbHelper.fetchGameData(gameNameList.getGameNameList().get(i));
+            catolog.add(currentGame);
+        }
+
+
+        /*
         final GameNameList gameNameList = (GameNameList) getApplicationContext();
 
         catolog = new ArrayList<>();
@@ -94,10 +109,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             Game currentGame = dbHelper.fetchGameData(gameNameList.getGameNameList().get(i));
             catolog.add(currentGame);
         }
+        */
 
     }
 
-    public void createrecycler(){
+    public void createrecycler()
+    {
         //recylceview is here
 
         mCatolog = findViewById(R.id.recylceview);
@@ -108,30 +125,32 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         mCatolog.setLayoutManager(mlayout);
         mCatolog.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener() {
+        mAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener()
+        {
             @Override
-            public void onItemClick(int itemPos) {
-                openGame(GameView.class,catolog.get(itemPos));
+            public void onItemClick(int itemPos)
+            {
+                openGame(GameView.class, catolog.get(itemPos));
 
             }
         });
-
-
-
     }
 
-    public void openGame(Class des,Game game){
-        Intent intent = new Intent(this,des);
-        intent.putExtra("Game",game);
+    public void openGame(Class des, Game game)
+    {
+        Intent intent = new Intent(this, des);
+        intent.putExtra("Game", game);
         startActivity(intent);
     }
 
-    public void open(Class des){
-        Intent intent = new Intent(this,des);
+    public void open(Class des)
+    {
+        Intent intent = new Intent(this, des);
         startActivity(intent);
     }
 
-    public void openPopup (View v){
+    public void openPopup(View v)
+    {
 //        myDialog.setContentView(R.layout.custom_popup);
 //
 //        Button exit = (Button)myDialog.findViewById(R.id.exitbutton);
@@ -146,34 +165,40 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 //        myDialog.show();
 
 
-        PopupMenu popupMenu = new PopupMenu(this,v);
+        PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.custom_menu);
         popupMenu.show();
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
 
-        createlist();
-        createrecycler();
+        //createlist();
+        //createrecycler();
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onMenuItemClick(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case R.id.new_game:
                 open(Add_andor_edit.class);
                 return true;
 
+            //  DEBUG - clears the database entirely
             case R.id.clear:
-                Toast.makeText(this,"Cleared the database",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Cleared the database", Toast.LENGTH_SHORT).show();
                 dbHelper.clearGameData();
+                createlist();
+                createrecycler();
+                mAdapter.notifyDataSetChanged();
             default:
                 return false;
-
         }
     }
 }
