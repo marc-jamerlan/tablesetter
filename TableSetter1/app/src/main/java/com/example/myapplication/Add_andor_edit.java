@@ -2,17 +2,24 @@ package com.example.myapplication;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.EditText;
 
 public class Add_andor_edit extends AppCompatActivity
 {
+    private static int RESULT_LOAD_IMAGE = 1;
     private RecyclerView mCatolog;
     private tagAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
@@ -29,6 +36,18 @@ public class Add_andor_edit extends AppCompatActivity
         final GameNameList gameNameList = (GameNameList) getApplicationContext();
         final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
+        ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
+
+        addImage.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
+
         edit.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -37,7 +56,6 @@ public class Add_andor_edit extends AppCompatActivity
                 edit.getText().clear();
             }
         });
-
         edit2.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -122,6 +140,30 @@ public class Add_andor_edit extends AppCompatActivity
         }
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null)
+        {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
+
+            addImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        }
+    }
+
 
     public void createrecycler()
     {

@@ -40,7 +40,16 @@ public class GameView extends AppCompatActivity {
             }
         });
 
-        ImageButton Delete = findViewById(R.id.imageView3);
+        ImageButton deleteButton = findViewById(R.id.imageView7);
+
+        deleteButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                deleteGame();
+            }
+        });
 
         ImageView pic = findViewById(R.id.imageView5);
 
@@ -94,7 +103,7 @@ public class GameView extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void delete(){
+    public void deleteGame(){
         Intent intent = new Intent(this,MainActivity.class);
         dbHelper.deleteGameData(gameEntery.getID());
         startActivity(intent);

@@ -13,8 +13,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     private static final String DATABASE_NAME = "TableSetterDatabase";
 
-    public static final String TABLE_NAME_1 = " GameTable";
-    public static final String TABLE_NAME_2 = " TagTable";
+    public static final String TABLE_NAME_1 = "GameTable";
+    public static final String TABLE_NAME_2 = "TagTable";
 
     public static final String COL1 = "ID";
     public static final String COL2 = "NAME";
@@ -115,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     //TODO
     public Game fetchGameData(String gameName)
     {
-        String query = "SELECT*FROM" + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "?";
+        String query = "SELECT*FROM " + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "?";
         /*String query = "SELECT*FROM" + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "'"
             + gameName + "'";*/
         SQLiteDatabase db = this.getWritableDatabase();
@@ -126,7 +126,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
         {
             cursor.moveToFirst();
 
-            game.setID(Integer.parseInt(cursor.getString(0)));
+            //game.setID(Integer.parseInt(cursor.getString(0)));
+            game.setID(cursor.getInt(0));
             game.setName(cursor.getString(1));
 
             //TODO - fetch images and taglist
@@ -148,7 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public boolean deleteGameData(int id)
     {
         boolean result = false;
-        String query = "SELECT * FROM" + TABLE_NAME_1 + " WHERE " + COL1 + "= '" + String.valueOf(id) + "'";
+        String query = "SELECT * FROM " + TABLE_NAME_1 + " WHERE " + COL1 + "= '" + String.valueOf(id) + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -163,6 +164,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             result = true;
         }
 
+        cursor.close();
         db.close();
 
         return result;
@@ -215,7 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     // TODO - perhaps change parameter from tagname to id?
     public Tags fetchTagData(String tagName)
     {
-        String query = "SELECT*FROM" + TABLE_NAME_2 + "WHERE" + COL2 + " = " + "'"
+        String query = "SELECT*FROM " + TABLE_NAME_2 + "WHERE " + COL2 + " = " + "'"
                 + tagName + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);

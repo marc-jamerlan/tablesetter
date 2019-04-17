@@ -97,20 +97,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             Game currentGame = dbHelper.fetchGameData(gameNameList.getGameNameList().get(i));
             catolog.add(currentGame);
         }
-
-
-        /*
-        final GameNameList gameNameList = (GameNameList) getApplicationContext();
-
-        catolog = new ArrayList<>();
-
-        for(int i = 0; i < gameNameList.getLength(); i++)
-        {
-            Game currentGame = dbHelper.fetchGameData(gameNameList.getGameNameList().get(i));
-            catolog.add(currentGame);
-        }
-        */
-
     }
 
     public void createrecycler()
