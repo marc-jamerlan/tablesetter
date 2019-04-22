@@ -177,7 +177,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void addTagData(Tags tag)
     {
         ContentValues values = new ContentValues();
-        values.put(COL1, tag.getID());
         values.put(COL2, tag.getName());
         values.put(COL5, tag.getNotes());
 
@@ -230,17 +229,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
     // TODO - perhaps change parameter from tagname to id?
     public Tags fetchTagData(String tagName)
     {
-        String query = "SELECT*FROM " + TABLE_NAME_2 + "WHERE " + COL2 + " = " + "'"
-                + tagName + "'";
+        String query = "SELECT*FROM " + TABLE_NAME_2 + " WHERE " + COL2 + " = " + "?";
+        /*String query = "SELECT*FROM " + TABLE_NAME_2 + " WHERE " + COL2 + " = " + "'"
+                + tagName + "'";*/
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = db.rawQuery(query, new String[]{tagName});
         Tags tag = new Tags();
 
         if (cursor.moveToFirst())
         {
             cursor.moveToFirst();
 
-            tag.setID(Integer.parseInt(cursor.getString(0)));
+            //tag.setID(Integer.parseInt(cursor.getString(0)));
+            tag.setID(cursor.getInt(0));
             tag.setName(cursor.getString(1));
             tag.setNotes(cursor.getString(2));
 
@@ -259,7 +260,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public boolean deleteTagData(int id)
     {
         boolean result = false;
-        String query = "SELECT*FROM" + TABLE_NAME_2 + "WHERE" + COL1 + "= '" + String.valueOf(id) + "'";
+        String query = "SELECT*FROM " + TABLE_NAME_2 + " WHERE " + COL1 + "= '" + String.valueOf(id) + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
