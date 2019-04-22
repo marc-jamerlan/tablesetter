@@ -6,11 +6,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tagnameA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#000"
         android:background="@drawable/tagstyle"
-         />
+        android:text="TextView"
+        android:textColor="#000" />
 </android.support.constraint.ConstraintLayout>

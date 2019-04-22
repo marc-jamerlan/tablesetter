@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener
 {
     private ArrayList<Game> catolog; // needs to be public perhaps?
+    private ArrayList<Tags> tagList;
     private RecyclerView mCatolog;
     private catalogAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         myDialog = new Dialog(this);
 
         createlist();
+        createtags();
         createrecycler();
     }
 
@@ -71,6 +73,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     //TODO - MODIFY TO PUT INTO DB
+    public void createtags(){
+        tagList = new ArrayList<>();
+
+        tagList.add( new Tags(0, "a", "a"));
+        tagList.add( new Tags(1, "b", "b"));
+        tagList.add( new Tags(2, "c", "c"));
+        tagList.add( new Tags(3, "d", "d"));
+
+        for(int i = 0; i< tagList.size(); i++){
+            dbHelper.addTagData(tagList.get(i));
+        }
+
+    }
 
     public void createlist()
     {
@@ -125,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public void openGame(Class des, Game game)
     {
         Intent intent = new Intent(this, des);
+        intent.putExtra("Tags",this.tagList);
         intent.putExtra("Game", game);
         startActivity(intent);
     }
@@ -173,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (item.getItemId())
         {
             case R.id.new_game:
-                open(Add_andor_edit.class);
+                openGame(Add_andor_edit.class, null);
                 return true;
 
             //  DEBUG - clears the database entirely

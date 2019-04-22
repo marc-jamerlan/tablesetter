@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class tagAdapter extends RecyclerView.Adapter<tagAdapter.tagAdapterHolder> {
 
     private catalogAdapter.onItemClickListener mListener;
-    private Game gameEntry;
+    private ArrayList<Tags> tagsArrayList;
 
     public interface onItemClickListener{
         void onItemClick(int itemPos);
@@ -29,9 +29,9 @@ public class tagAdapter extends RecyclerView.Adapter<tagAdapter.tagAdapterHolder
         public tagAdapterHolder(@NonNull View itemView, final catalogAdapter.onItemClickListener listener) {
             super(itemView);
 
-             name = itemView.findViewById(R.id.textView10);
+            name = itemView.findViewById(R.id.tagnameA);
 
-             itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(listener != null){
@@ -44,10 +44,14 @@ public class tagAdapter extends RecyclerView.Adapter<tagAdapter.tagAdapterHolder
             });
 
         }
-        }
+    }
 
-    tagAdapter(Game a){
-        this.gameEntry = a;
+    tagAdapter(){
+        this.tagsArrayList = new ArrayList<>();
+    }
+
+    tagAdapter(ArrayList<Tags> a){
+        this.tagsArrayList = a;
     }
 
 
@@ -55,20 +59,20 @@ public class tagAdapter extends RecyclerView.Adapter<tagAdapter.tagAdapterHolder
     @Override
     public tagAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recycler_view_item,viewGroup,false);
+                .inflate(R.layout.tagvieweritem,viewGroup,false);
 
-        tagAdapter.tagAdapterHolder cah = new tagAdapter.tagAdapterHolder(v,mListener);
+        tagAdapterHolder cah = new tagAdapterHolder(v,mListener);
         return cah;
     }
 
     @Override
     public void onBindViewHolder(@NonNull tagAdapterHolder tagAdapterHolder, int i) {
-        Tags tag = gameEntry.getTagArray().get(i);
+        Tags tag = tagsArrayList.get(i);
         tagAdapterHolder.name.setText(tag.getName());
     }
 
     @Override
     public int getItemCount() {
-        return this.gameEntry.getTagArray().size();
+        return this.tagsArrayList.size();
     }
 }

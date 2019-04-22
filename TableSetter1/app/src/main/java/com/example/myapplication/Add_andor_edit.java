@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 public class Add_andor_edit extends AppCompatActivity
 {
     private static int RESULT_LOAD_IMAGE = 1;
@@ -24,6 +26,7 @@ public class Add_andor_edit extends AppCompatActivity
     private tagAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
     private Game gameEntry;
+    private ArrayList<Tags> listoftags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -67,6 +70,8 @@ public class Add_andor_edit extends AppCompatActivity
 
         Intent intent = getIntent();
         this.gameEntry = intent.getParcelableExtra("Game");
+        this.listoftags = intent.getParcelableArrayListExtra("Tags");
+        createrecycler();
 
         Button submit = findViewById(R.id.editSub);
 
@@ -168,10 +173,10 @@ public class Add_andor_edit extends AppCompatActivity
     public void createrecycler()
     {
         //recylceview is here
-        mCatolog = findViewById(R.id.tagList);
+        mCatolog = findViewById(R.id.recyclerViewtag);
         mCatolog.setHasFixedSize(true);
         mlayout = new LinearLayoutManager(this);
-        mAdapter = new tagAdapter(gameEntry);
+        mAdapter = new tagAdapter(listoftags);
 
         mCatolog.setLayoutManager(mlayout);
         mCatolog.setAdapter(mAdapter);
@@ -189,6 +194,7 @@ public class Add_andor_edit extends AppCompatActivity
 
 
     }
+
 
     public void open(Class des)
     {

@@ -12,11 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class GameView extends AppCompatActivity {
     private RecyclerView mCatolog;
     private tagAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
     private Game gameEntery;
+    private ArrayList<Tags>listoftags;
 
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
@@ -27,7 +30,10 @@ public class GameView extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.gameEntery = intent.getParcelableExtra("Game");
+        this.listoftags = intent.getParcelableArrayListExtra("Tags");
 
+
+        createrecycler();
 
         ImageButton edit = findViewById(R.id.editButton);
 
@@ -68,7 +74,7 @@ public class GameView extends AppCompatActivity {
         mCatolog = findViewById(R.id.tagList);
         mCatolog.setHasFixedSize(true);
         mlayout = new LinearLayoutManager(this);
-        mAdapter = new tagAdapter(gameEntery) ;
+        mAdapter = new tagAdapter(gameEntery.getTagArray()) ;
 
         mCatolog.setLayoutManager(mlayout);
         mCatolog.setAdapter(mAdapter);
@@ -99,7 +105,8 @@ public class GameView extends AppCompatActivity {
 
     public void edit(){
         Intent intent = new Intent(this,Add_andor_edit.class);
-        intent.putExtra("Game",gameEntery);
+        intent.putExtra("Tags",this.listoftags);
+        intent.putExtra("Game", this.gameEntery);
         startActivity(intent);
     }
 
