@@ -188,10 +188,23 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
     }
 
-    //TODO - implement loadTagData() and clearTagData
     public String loadTagData()
     {
-        return null;
+        String result = "";
+        String query = "Select*FROM " + TABLE_NAME_2;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext())
+        {
+            //int result0 = cursor.getInt(0);
+            String result1 = cursor.getString(1);
+            result += result1 + ";";
+        }
+
+        cursor.close();
+        db.close();
+        return result;
     }
 
     public void clearTagData()
