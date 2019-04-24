@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".GameView"></activity>
+        <activity android:name=".Tag_Add"></activity>
         <activity android:name=".Add_andor_edit" />
         <activity
             android:name=".MainActivity"

@@ -27,6 +27,7 @@ public class Add_andor_edit extends AppCompatActivity
     private RecyclerView.LayoutManager mlayout;
     private Game gameEntry;
     private ArrayList<Tags> listoftags;
+    private ArrayList<Tags> holdingtags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -71,11 +72,27 @@ public class Add_andor_edit extends AppCompatActivity
         Intent intent = getIntent();
         this.gameEntry = intent.getParcelableExtra("Game");
         this.listoftags = intent.getParcelableArrayListExtra("Tags");
+
+        if(gameEntry == null){
+            holdingtags = new ArrayList<>();
+        } else {
+            holdingtags = gameEntry.getTagArray();
+        }
+
         createrecycler();
 
         Button submit = findViewById(R.id.editSub);
 
-        Button addTag = findViewById(R.id.)
+        Button addTag = findViewById(R.id.addTags);
+
+        addTag.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openGame(Tag_Add.class, gameEntry);
+            }
+        });
 
         if (this.gameEntry == null)
         {
@@ -178,7 +195,7 @@ public class Add_andor_edit extends AppCompatActivity
         mCatolog = findViewById(R.id.recyclerViewtag);
         mCatolog.setHasFixedSize(true);
         mlayout = new LinearLayoutManager(this);
-        mAdapter = new tagAdapter(listoftags);
+        mAdapter = new tagAdapter(holdingtags);
 
         mCatolog.setLayoutManager(mlayout);
         mCatolog.setAdapter(mAdapter);
@@ -188,8 +205,8 @@ public class Add_andor_edit extends AppCompatActivity
             @Override
             public void onItemClick(int itemPos)
             {
-
-                //Toast.makeText(this,gameEntery.getTagArray().get(itemPos).getNotes(),Toast.LENGTH_LONG).show();
+                holdingtags.remove(itemPos);
+                mAdapter.notifyDataSetChanged();
 
             }
         });
@@ -203,6 +220,15 @@ public class Add_andor_edit extends AppCompatActivity
         Intent intent = new Intent(this, des);
         startActivity(intent);
     }
+
+    public void openGame(Class des, Game game)
+    {
+        Intent intent = new Intent(this, des);
+        intent.putExtra("Tags",this.listoftags);
+        intent.putExtra("Game", game);
+        startActivity(intent);
+    }
+
 
     public Game getGameEntry()
     {
