@@ -71,7 +71,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         return super.onOptionsItemSelected(item);
     }
-/*
+
+    /*
 
     //TODO - MODIFY TO PUT INTO DB
     public void createtags(){

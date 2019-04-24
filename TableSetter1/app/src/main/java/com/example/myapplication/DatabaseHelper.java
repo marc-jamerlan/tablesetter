@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, 5);
+        super(context, DATABASE_NAME, null, 6);
     }
 
 
@@ -47,11 +47,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.execSQL(CREATE_TABLE2);
 
 
-        addTagData(new Tags( "aaaa", "aaaa"));
-        addTagData(new Tags( "bbbb", "bbbb"));
-        addTagData(new Tags( "cccc", "cccc"));
-        addTagData(new Tags( "dddd", "dddd"));
-
+        addPredefinedTags(db, new Tags( "aaaa", "aaaa"));
+        addPredefinedTags(db, new Tags( "bbbb", "bbbb"));
+        addPredefinedTags(db, new Tags( "cccc", "cccc"));
+        addPredefinedTags(db, new Tags( "dddd", "dddd"));
     }
 
 
@@ -179,6 +178,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     /***TAG TABLE***/
 
+    private void addPredefinedTags(SQLiteDatabase db, Tags tag)
+    {
+        ContentValues values = new ContentValues();
+        values.put(COL2, tag.getName());
+        values.put(COL5, tag.getNotes());
+
+        //TODO - see addGameData() above
+
+        db.insert(TABLE_NAME_2, null, values);
+    }
 
     public void addTagData(Tags tag)
     {
