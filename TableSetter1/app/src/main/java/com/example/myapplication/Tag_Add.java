@@ -30,6 +30,7 @@ public class Tag_Add extends AppCompatActivity {
         this.listoftags = intent.getParcelableArrayListExtra("Tags");
 
         final DatabaseHelper dbHelper = new DatabaseHelper(this);
+        createrecycler();
 
         Button addtag = findViewById(R.id.addTagButton);
         final EditText name = findViewById(R.id.tagNameAdd);
@@ -40,7 +41,7 @@ public class Tag_Add extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Tags newTag = new Tags(0, name.getText().toString(), summary.getText().toString());
+                Tags newTag = new Tags(name.getText().toString(), summary.getText().toString());
                 name.setText("  ");
                 summary.setText("  ");
                 listoftags.add(newTag);
@@ -76,8 +77,8 @@ public class Tag_Add extends AppCompatActivity {
             @Override
             public void onItemClick(int itemPos)
             {
-
-                //Toast.makeText(this,gameEntery.getTagArray().get(itemPos).getNotes(),Toast.LENGTH_LONG).show();
+                gameEntry.setTagArray(listoftags.get(itemPos));
+                openGame(Add_andor_edit.class,gameEntry);
 
             }
         });

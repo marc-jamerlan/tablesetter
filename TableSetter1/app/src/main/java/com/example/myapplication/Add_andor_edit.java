@@ -75,6 +75,8 @@ public class Add_andor_edit extends AppCompatActivity
 
         Button submit = findViewById(R.id.editSub);
 
+        Button addTag = findViewById(R.id.)
+
         if (this.gameEntry == null)
         {
             submit.setOnClickListener(new View.OnClickListener()

@@ -72,23 +72,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-    //TODO - MODIFY TO PUT INTO DB
-    public void createtags(){
-        tagList = new ArrayList<>();
-
-        tagList.add( new Tags("a", "a"));
-        tagList.add( new Tags("b", "b"));
-        tagList.add( new Tags("c", "c"));
-        tagList.add( new Tags("d", "d"));
-
-        for(int i = 0; i< tagList.size(); i++){
-            dbHelper.addTagData(tagList.get(i));
-        }
-
-    }
-    */
-
     public void createlist()
     {
         //this is for the catolog
