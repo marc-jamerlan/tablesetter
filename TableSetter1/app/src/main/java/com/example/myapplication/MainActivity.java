@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         myDialog = new Dialog(this);
 
         createlist();
-        //createtags();
+        createtags();
         createrecycler();
     }
 
@@ -71,6 +71,22 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         return super.onOptionsItemSelected(item);
     }
+
+    //TODO - MODIFY TO PUT INTO DB
+    public void createtags(){
+        tagList = new ArrayList<>();
+
+        tagList.add( new Tags( "aaaa", "aaaa"));
+        tagList.add( new Tags( "bbbb", "bbbb"));
+        tagList.add( new Tags( "cccc", "cccc"));
+        tagList.add( new Tags( "dddd", "dddd"));
+
+        for(int i = 0; i< tagList.size(); i++){
+            dbHelper.addTagData(tagList.get(i));
+        }
+
+    }
+
 
     public void createlist()
     {

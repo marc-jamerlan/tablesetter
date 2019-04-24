@@ -29,6 +29,10 @@ public class Tag_Add extends AppCompatActivity {
         this.gameEntry = intent.getParcelableExtra("Game");
         this.listoftags = intent.getParcelableArrayListExtra("Tags");
 
+        if(gameEntry == null){
+            gameEntry = new Game();
+        }
+
         final DatabaseHelper dbHelper = new DatabaseHelper(this);
         createrecycler();
 
@@ -77,6 +81,7 @@ public class Tag_Add extends AppCompatActivity {
             @Override
             public void onItemClick(int itemPos)
             {
+
                 gameEntry.setTagArray(listoftags.get(itemPos));
                 openGame(Add_andor_edit.class,gameEntry);
 

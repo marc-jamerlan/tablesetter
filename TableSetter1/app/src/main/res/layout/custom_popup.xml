@@ -104,22 +104,24 @@
 
     <ImageButton
         android:id="@+id/editButton"
-        android:layout_width="27dp"
-        android:layout_height="28dp"
+        android:layout_width="48dp"
+        android:layout_height="50dp"
         android:layout_marginTop="12dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        app:srcCompat="@drawable/editbutton" />
 
     <ImageButton
         android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
         android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editButton"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        app:srcCompat="@drawable/deletebutton" />
 </android.support.constraint.ConstraintLayout>

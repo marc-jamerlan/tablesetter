@@ -12,7 +12,13 @@ public class Game implements Parcelable {
     private ArrayList<Tags> tagArray; // change this to an array of tag IDs perhaps?
     private String notes;
 
-    public Game(){}
+    public Game(){
+        this.ID = -1;
+        this.gameImage = -1;
+        this.name = "";
+        this.tagArray = new ArrayList<>();
+        this.notes = "";
+    }
 
     public Game(int id, int a, String b, String notes){
         this.ID = id;
@@ -27,6 +33,7 @@ public class Game implements Parcelable {
         name = in.readString();
         gameImage = in.readInt();
         notes = in.readString();
+        in.readTypedList(tagArray,Tags.CREATOR);
     }
 
     public static final Creator<Game> CREATOR = new Creator<Game>() {
@@ -63,10 +70,18 @@ public class Game implements Parcelable {
 
     public void setTagArray(Tags tag){this.tagArray.add(tag);}
 
+    public void setTagArray(ArrayList<Tags> taglist){
+        this.tagArray = taglist;
+    }
+
     // not done here, revisit
     public ArrayList<Tags> getTagArray()
     {
         return tagArray;
+    }
+
+    public void removeTag(Tags tag){
+        this.tagArray.remove(tag);
     }
 
     public String getNotes() { return notes; }
@@ -84,5 +99,6 @@ public class Game implements Parcelable {
         dest.writeString(name);
         dest.writeInt(gameImage);
         dest.writeString(notes);
+        dest.writeTypedList(tagArray);
     }
 }
