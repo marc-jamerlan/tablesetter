@@ -46,6 +46,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 + COL2 + " TEXT," + COL5 + " TEXT);";
         db.execSQL(CREATE_TABLE2);
 
+        addTagData(new Tags("a", "a"));
+        addTagData(new Tags("b", "b"));
+        addTagData(new Tags("c", "c"));
     }
 
 

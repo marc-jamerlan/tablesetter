@@ -10,9 +10,8 @@ public class Tags implements Parcelable{
 
     public Tags(){}
 
-    public Tags(int id, String name, String notes)
+    public Tags(String name, String notes)
     {
-        this.ID = id;
         this.name = name;
         this.notes = notes;
     }
