@@ -35,9 +35,6 @@ public class catalogAdapter extends RecyclerView.Adapter<catalogAdapter.catalogA
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             gameName = itemView.findViewById(R.id.gameName);
-            tag1 = itemView.findViewById(R.id.textView1);
-            tag2 = itemView.findViewById(R.id.textView2);
-            tag3 = itemView.findViewById(R.id.textView3);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

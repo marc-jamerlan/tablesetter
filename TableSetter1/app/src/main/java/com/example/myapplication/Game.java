@@ -11,6 +11,8 @@ public class Game implements Parcelable {
     private int gameImage;
     private ArrayList<Tags> tagArray; // change this to an array of tag IDs perhaps?
     private String notes;
+    private int tagsAdded;
+    private int edited;
 
     public Game(){
         this.ID = -1;
@@ -18,6 +20,8 @@ public class Game implements Parcelable {
         this.name = "";
         this.tagArray = new ArrayList<>();
         this.notes = "";
+        this.tagsAdded = 0;
+        this.edited = 0;
     }
 
     public Game(int id, int a, String b, String notes){
@@ -26,6 +30,8 @@ public class Game implements Parcelable {
         this.name = b;
         this.tagArray = new ArrayList<>();
         this.notes = notes;
+        this.tagsAdded = 0;
+        this.edited = 0;
     }
 
     protected Game(Parcel in) {
@@ -33,7 +39,9 @@ public class Game implements Parcelable {
         name = in.readString();
         gameImage = in.readInt();
         notes = in.readString();
-        in.readTypedList(tagArray,Tags.CREATOR);
+        tagArray = in.createTypedArrayList(Tags.CREATOR);
+        tagsAdded = in.readInt();
+        edited = in.readInt();
     }
 
     public static final Creator<Game> CREATOR = new Creator<Game>() {
@@ -88,6 +96,14 @@ public class Game implements Parcelable {
 
     public void setNotes(String notes) { this.notes = notes; }
 
+    public int hasTagsAdded() { return tagsAdded; }
+
+    public void setTagsAdded(int tagsAdded) {this.tagsAdded = tagsAdded; }
+
+    public int wasEdited() { return edited; }
+
+    public void setEdited(int edited) {this.edited = edited; }
+
     @Override
     public int describeContents() {
         return 0;
@@ -100,5 +116,7 @@ public class Game implements Parcelable {
         dest.writeInt(gameImage);
         dest.writeString(notes);
         dest.writeTypedList(tagArray);
+        dest.writeInt(tagsAdded);
+        dest.writeInt(edited);
     }
 }

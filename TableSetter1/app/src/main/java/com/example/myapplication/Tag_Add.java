@@ -27,13 +27,24 @@ public class Tag_Add extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.gameEntry = intent.getParcelableExtra("Game");
-        this.listoftags = intent.getParcelableArrayListExtra("Tags");
+        //this.listoftags = intent.getParcelableArrayListExtra("Tags");
+        this.listoftags = new ArrayList<>();
 
         if(gameEntry == null){
             gameEntry = new Game();
         }
 
         final DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+        String tagData = dbHelper.loadTagData();
+
+        String[] tagArray = tagData.split(";");
+
+        for (int i = 0; i < tagArray.length; i++)
+        {
+            this.listoftags.add(dbHelper.fetchTagData(tagArray[i]));
+        }
+
         createrecycler();
 
         Button addtag = findViewById(R.id.addTagButton);
@@ -49,6 +60,7 @@ public class Tag_Add extends AppCompatActivity {
                 name.setText("  ");
                 summary.setText("  ");
                 listoftags.add(newTag);
+                dbHelper.addTagData(newTag);
                 mAdapter.notifyDataSetChanged();
             }
         });
@@ -68,7 +80,7 @@ public class Tag_Add extends AppCompatActivity {
     public void createrecycler()
     {
         //recylceview is here
-        mCatolog = findViewById(R.id.recyclerViewtag);
+        mCatolog = findViewById(R.id.recyclerView);
         mCatolog.setHasFixedSize(true);
         mlayout = new LinearLayoutManager(this);
         mAdapter = new tagAdapter(listoftags);
@@ -83,6 +95,7 @@ public class Tag_Add extends AppCompatActivity {
             {
 
                 gameEntry.setTagArray(listoftags.get(itemPos));
+                gameEntry.setTagsAdded(1);
                 openGame(Add_andor_edit.class,gameEntry);
 
             }

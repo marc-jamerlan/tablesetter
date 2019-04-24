@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -94,7 +95,7 @@ public class Add_andor_edit extends AppCompatActivity
             }
         });
 
-        if (this.gameEntry == null)
+        if (this.gameEntry == null || (this.gameEntry.hasTagsAdded() == 1 && this.gameEntry.wasEdited() == 0))
         {
             submit.setOnClickListener(new View.OnClickListener()
             {
@@ -107,6 +108,8 @@ public class Add_andor_edit extends AppCompatActivity
                     newGame.setName(gameName);
                     gameNameList.appendList(gameName);
                     newGame.setNotes(edit2.getText().toString());
+                    newGame.setTagArray(holdingtags);
+                    newGame.setEdited(1);
 
                     dbHelper.addGameData(newGame);
 
@@ -133,6 +136,7 @@ public class Add_andor_edit extends AppCompatActivity
 
                     gameUpdate.setName(edit.getText().toString());
                     gameUpdate.setNotes(edit2.getText().toString());
+                    gameUpdate.setTagArray(holdingtags);
 
                     for (int i = 0; i < gameNameList.getLength(); i++)
                     {
@@ -184,7 +188,11 @@ public class Add_andor_edit extends AppCompatActivity
 
             ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
 
-            addImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            Bitmap gameImage = BitmapFactory.decodeFile(picturePath);
+
+            //TODO - figure out how to show image
+
+            addImage.setImageBitmap(gameImage);
         }
     }
 
@@ -224,7 +232,7 @@ public class Add_andor_edit extends AppCompatActivity
     public void openGame(Class des, Game game)
     {
         Intent intent = new Intent(this, des);
-        intent.putExtra("Tags",this.listoftags);
+        //intent.putExtra("Tags",this.listoftags);
         intent.putExtra("Game", game);
         startActivity(intent);
     }
