@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, 6);
+        super(context, DATABASE_NAME, null, 7);
     }
 
 
@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         String CREATE_TABLE1 = "CREATE TABLE " + TABLE_NAME_1 + "(" + COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COL2 + " TEXT," + COL3 + " BLOB," + COL4 + " TEXT," + COL5 + " TEXT);";
+                + COL2 + " TEXT," + COL3 + " TEXT," + COL4 + " TEXT," + COL5 + " TEXT);";
         db.execSQL(CREATE_TABLE1);
 
         String CREATE_TABLE2 = "CREATE TABLE " + TABLE_NAME_2 + "(" + COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -47,10 +47,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.execSQL(CREATE_TABLE2);
 
 
-        addPredefinedTags(db, new Tags( "aaaa", "aaaa"));
-        addPredefinedTags(db, new Tags( "bbbb", "bbbb"));
-        addPredefinedTags(db, new Tags( "cccc", "cccc"));
-        addPredefinedTags(db, new Tags( "dddd", "dddd"));
+        addPredefinedTags(db, new Tags( "Family Fun", "Fun for family and friends of all ages."));
+        addPredefinedTags(db, new Tags( "Competitive", "For those who feel the need to win."));
+        addPredefinedTags(db, new Tags( "Military", "Command and conquer, soldier."));
+        addPredefinedTags(db, new Tags( "Fantasy", "An adventure from time immemorial."));
     }
 
 
@@ -102,27 +102,23 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
     }
 
-    public boolean updateGameData(int id, String name, int image, String notes)
+    public boolean updateGameData(int id, String name, String image, String notes)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL2, name);
         values.put(COL3, image);
 
-        //tag data needs updating
+        //TODO - tag data needs updating
 
         values.put(COL5, notes);
 
         return db.update(TABLE_NAME_1, values, COL1 + "=" + id, null) > 0;
     }
 
-
-    //TODO
     public Game fetchGameData(String gameName)
     {
         String query = "SELECT*FROM " + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "?";
-        /*String query = "SELECT*FROM" + TABLE_NAME_1 + " WHERE " + COL2 + " = " + "'"
-            + gameName + "'";*/
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, new String[]{gameName});
         Game game = new Game();
@@ -131,11 +127,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
         {
             cursor.moveToFirst();
 
-            //game.setID(Integer.parseInt(cursor.getString(0)));
             game.setID(cursor.getInt(0));
             game.setName(cursor.getString(1));
+            game.setGameImage(cursor.getString(2));
 
-            //TODO - fetch images and taglist
+            //TODO - fetch taglist
 
             game.setNotes(cursor.getString(4));
 
@@ -184,8 +180,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         values.put(COL2, tag.getName());
         values.put(COL5, tag.getNotes());
 
-        //TODO - see addGameData() above
-
         db.insert(TABLE_NAME_2, null, values);
     }
 
@@ -194,8 +188,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         ContentValues values = new ContentValues();
         values.put(COL2, tag.getName());
         values.put(COL5, tag.getNotes());
-
-        //TODO - see addGameData() above
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME_2, null, values);
@@ -234,7 +226,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL1, id);
         values.put(COL2, name);
         values.put(COL5, notes);
 
@@ -245,8 +236,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public Tags fetchTagData(String tagName)
     {
         String query = "SELECT*FROM " + TABLE_NAME_2 + " WHERE " + COL2 + " = " + "?";
-        /*String query = "SELECT*FROM " + TABLE_NAME_2 + " WHERE " + COL2 + " = " + "'"
-                + tagName + "'";*/
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, new String[]{tagName});
         Tags tag = new Tags();
@@ -255,7 +244,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         {
             cursor.moveToFirst();
 
-            //tag.setID(Integer.parseInt(cursor.getString(0)));
             tag.setID(cursor.getInt(0));
             tag.setName(cursor.getString(1));
             tag.setNotes(cursor.getString(2));

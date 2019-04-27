@@ -2,9 +2,8 @@ package com.example.myapplication;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +11,15 @@ import android.os.Bundle;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.EditText;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Add_andor_edit extends AppCompatActivity
@@ -41,7 +43,7 @@ public class Add_andor_edit extends AppCompatActivity
         final GameNameList gameNameList = (GameNameList) getApplicationContext();
         final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
-        ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
+        final ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
 
         addImage.setOnClickListener(new View.OnClickListener()
         {
@@ -95,6 +97,7 @@ public class Add_andor_edit extends AppCompatActivity
             }
         });
 
+        // Add new game
         if (this.gameEntry == null || (this.gameEntry.hasTagsAdded() == 1 && this.gameEntry.wasEdited() == 0))
         {
             submit.setOnClickListener(new View.OnClickListener()
@@ -107,6 +110,7 @@ public class Add_andor_edit extends AppCompatActivity
 
                     newGame.setName(gameName);
                     gameNameList.appendList(gameName);
+                    newGame.setGameImage(imageToString(((BitmapDrawable)addImage.getDrawable()).getBitmap()));
                     newGame.setNotes(edit2.getText().toString());
                     newGame.setTagArray(holdingtags);
                     newGame.setEdited(1);
@@ -125,6 +129,7 @@ public class Add_andor_edit extends AppCompatActivity
         {
             edit.setText(this.gameEntry.getName());
             edit2.setText(this.gameEntry.getNotes());
+            addImage.setImageBitmap(this.gameEntry.decodeGameImage());
 
             submit.setOnClickListener(new View.OnClickListener()
             {
@@ -135,6 +140,7 @@ public class Add_andor_edit extends AppCompatActivity
                     String oldName = gameUpdate.getName();
 
                     gameUpdate.setName(edit.getText().toString());
+                    gameUpdate.setGameImage(imageToString(((BitmapDrawable)addImage.getDrawable()).getBitmap()));
                     gameUpdate.setNotes(edit2.getText().toString());
                     gameUpdate.setTagArray(holdingtags);
 
@@ -177,25 +183,34 @@ public class Add_andor_edit extends AppCompatActivity
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null)
         {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
+            try
+            {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                Toast.makeText(Add_andor_edit.this, "Uploaded Image", Toast.LENGTH_SHORT).show();
+                ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
+                addImage.getLayoutParams().height = 350;
+                addImage.getLayoutParams().width = 350;
+                addImage.requestLayout();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
+                addImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 350, 350, false));
 
-            ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
-
-            Bitmap gameImage = BitmapFactory.decodeFile(picturePath);
-
-            //TODO - figure out how to show image
-
-            addImage.setImageBitmap(gameImage);
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+                Toast.makeText(Add_andor_edit.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
+    public String imageToString(Bitmap bm)
+    {
+        ByteArrayOutputStream  baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
 
     public void createrecycler()
     {

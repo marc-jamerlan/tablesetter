@@ -63,10 +63,11 @@ public class GameView extends AppCompatActivity {
 
         TextView summary = findViewById(R.id.textView8);
 
+        pic.setImageBitmap(this.gameEntery.decodeGameImage());
+
         name.setText(this.gameEntery.getName());
 
         summary.setText(this.gameEntery.getNotes());
-
     }
 
     public void createrecycler(){
@@ -87,9 +88,6 @@ public class GameView extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     public void open(Class des){
@@ -112,7 +110,14 @@ public class GameView extends AppCompatActivity {
 
     public void deleteGame(){
         Intent intent = new Intent(this,MainActivity.class);
-        dbHelper.deleteGameData(gameEntery.getID());
+        if(dbHelper.deleteGameData(gameEntery.getID()))
+        {
+            Toast.makeText(this, "Game Deleted", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Deletion Failed, data unchanged", Toast.LENGTH_SHORT).show();
+        }
         startActivity(intent);
     }
 }

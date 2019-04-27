@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         myDialog = new Dialog(this);
 
         createlist();
-        //createtags();
         createrecycler();
     }
 
@@ -71,24 +70,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         return super.onOptionsItemSelected(item);
     }
-
-    /*
-
-    //TODO - MODIFY TO PUT INTO DB
-    public void createtags(){
-        tagList = new ArrayList<>();
-
-        tagList.add( new Tags( "aaaa", "aaaa"));
-        tagList.add( new Tags( "bbbb", "bbbb"));
-        tagList.add( new Tags( "cccc", "cccc"));
-        tagList.add( new Tags( "dddd", "dddd"));
-
-        for(int i = 0; i< tagList.size(); i++){
-            dbHelper.addTagData(tagList.get(i));
-        }
-
-    }
-*/
 
     public void createlist()
     {
@@ -143,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public void openGame(Class des, Game game)
     {
         Intent intent = new Intent(this, des);
+        if(game != null)
+        {
+            game.setEdited(1);
+        }
         intent.putExtra("Tags",this.tagList);
         intent.putExtra("Game", game);
         startActivity(intent);
@@ -195,13 +180,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 openGame(Add_andor_edit.class, null);
                 return true;
 
-            //  DEBUG - clears the database entirely
             case R.id.clear:
-                Toast.makeText(this, "Cleared the database", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Cleared the catalog", Toast.LENGTH_SHORT).show();
                 dbHelper.clearGameData();
                 createlist();
                 createrecycler();
                 mAdapter.notifyDataSetChanged();
+
             default:
                 return false;
         }

@@ -1,14 +1,18 @@
 package com.example.myapplication;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
+
 
 import java.util.ArrayList;
 
 public class Game implements Parcelable {
     private int ID;
     private String name;
-    private int gameImage;
+    private String gameImage;
     private ArrayList<Tags> tagArray; // change this to an array of tag IDs perhaps?
     private String notes;
     private int tagsAdded;
@@ -16,18 +20,18 @@ public class Game implements Parcelable {
 
     public Game(){
         this.ID = -1;
-        this.gameImage = -1;
         this.name = "";
+        this.gameImage = "";
         this.tagArray = new ArrayList<>();
         this.notes = "";
         this.tagsAdded = 0;
         this.edited = 0;
     }
 
-    public Game(int id, int a, String b, String notes){
+    public Game(int id, String a, String notes){
         this.ID = id;
-        this.gameImage = a;
-        this.name = b;
+        this.name = a;
+        this.gameImage = "";
         this.tagArray = new ArrayList<>();
         this.notes = notes;
         this.tagsAdded = 0;
@@ -37,7 +41,7 @@ public class Game implements Parcelable {
     protected Game(Parcel in) {
         ID = in.readInt();
         name = in.readString();
-        gameImage = in.readInt();
+        gameImage = in.readString();
         notes = in.readString();
         tagArray = in.createTypedArrayList(Tags.CREATOR);
         tagsAdded = in.readInt();
@@ -62,11 +66,9 @@ public class Game implements Parcelable {
 
     public void setID(int id) { this.ID = id; }
 
-    public int getGameImage() {
-        return gameImage;
-    }
+    public String getGameImage() { return gameImage; }
 
-    public void setGameImage(int gameImage) { this.gameImage = gameImage; }
+    public void setGameImage(String gameImage) { this.gameImage = gameImage; }
 
     public String getName() {
         return name;
@@ -113,10 +115,23 @@ public class Game implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(ID);
         dest.writeString(name);
-        dest.writeInt(gameImage);
+        dest.writeString(gameImage);
         dest.writeString(notes);
         dest.writeTypedList(tagArray);
         dest.writeInt(tagsAdded);
         dest.writeInt(edited);
+    }
+
+    public Bitmap decodeGameImage()
+    {
+        try
+        {
+            byte[] encodeByte = Base64.decode(gameImage, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        } catch(Exception e)
+        {
+            e.getMessage();
+            return null;
+        }
     }
 }

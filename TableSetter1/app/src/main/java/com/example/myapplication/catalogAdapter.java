@@ -27,9 +27,6 @@ public class catalogAdapter extends RecyclerView.Adapter<catalogAdapter.catalogA
     public static class catalogAdapterHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
         public TextView gameName;
-        public TextView tag1;
-        public TextView tag2;
-        public TextView tag3;
 
         public catalogAdapterHolder(@NonNull View itemView, final onItemClickListener listener) {
             super(itemView);
@@ -64,16 +61,12 @@ public class catalogAdapter extends RecyclerView.Adapter<catalogAdapter.catalogA
         return cah;
     }
 
-
-    // TODO - MODIFY TO PULL FROM DB
     @Override
     public void onBindViewHolder(@NonNull catalogAdapterHolder catalogAdapterHolder, int i) {
         Game currentGame = catalog.get(i);
 
-        //catalogAdapterHolder.mImageView.setImageResource(currentGame.getGameImage());
+        catalogAdapterHolder.mImageView.setImageBitmap(currentGame.decodeGameImage());
         catalogAdapterHolder.gameName.setText(currentGame.getName());
-
-
     }
 
     @Override
