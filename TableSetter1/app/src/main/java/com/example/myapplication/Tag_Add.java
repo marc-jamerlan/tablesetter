@@ -61,6 +61,7 @@ public class Tag_Add extends AppCompatActivity {
                 summary.setText("  ");
                 listoftags.add(newTag);
                 dbHelper.addTagData(newTag);
+                // layout need to be let out
                 mAdapter.notifyDataSetChanged();
             }
         });
