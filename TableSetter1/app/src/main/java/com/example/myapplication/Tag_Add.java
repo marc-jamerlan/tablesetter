@@ -82,7 +82,7 @@ public class Tag_Add extends AppCompatActivity {
         //recylceview is here
         mCatolog = findViewById(R.id.recyclerView);
         mCatolog.setHasFixedSize(true);
-        mlayout = new LinearLayoutManager(this);
+        mlayout = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         mAdapter = new tagAdapter(listoftags);
 
         mCatolog.setLayoutManager(mlayout);

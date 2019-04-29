@@ -2,20 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name="com.example.myapplication.GameNameList"
+        android:name=".GameNameList"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="TableSetter"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GameView"></activity>
-        <activity android:name=".Tag_Add"></activity>
+        <activity android:name=".GameView" />
+        <activity android:name=".Tag_Add" />
         <activity android:name=".Add_andor_edit" />
         <activity
             android:name=".MainActivity"
