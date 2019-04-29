@@ -13,7 +13,7 @@ public class Game implements Parcelable {
     private int ID;
     private String name;
     private String gameImage;
-    private ArrayList<Tags> tagArray; // change this to an array of tag IDs perhaps?
+    private ArrayList<Integer> tagArray; // change this to an array of tag IDs perhaps?
     private String notes;
     private int tagsAdded;
     private int edited;
@@ -43,7 +43,7 @@ public class Game implements Parcelable {
         name = in.readString();
         gameImage = in.readString();
         notes = in.readString();
-        tagArray = in.createTypedArrayList(Tags.CREATOR);
+        tagArray = (ArrayList<Integer>) in.readSerializable();
         tagsAdded = in.readInt();
         edited = in.readInt();
     }
@@ -78,20 +78,29 @@ public class Game implements Parcelable {
         this.name = name;
     }
 
-    public void setTagArray(Tags tag){this.tagArray.add(tag);}
+    public void setTagArray(Tags tag){this.tagArray.add(tag.getID());}
 
-    public void setTagArray(ArrayList<Tags> taglist){
-        this.tagArray = taglist;
-    }
+    public void setTagArray(ArrayList<Integer> taglist){ this.tagArray = taglist; }
 
-    // not done here, revisit
-    public ArrayList<Tags> getTagArray()
+    public ArrayList<Integer> getTagArray()
     {
         return tagArray;
     }
 
+    public String getTagArrayString()
+    {
+        StringBuilder tagString = new StringBuilder();
+        for(int i = 0; i < tagArray.size(); i++)
+        {
+            tagString.append(tagArray.get(i));
+            tagString.append(";");
+        }
+
+        return tagString.toString();
+    }
+
     public void removeTag(Tags tag){
-        this.tagArray.remove(tag);
+        this.tagArray.remove(this.tagArray.indexOf(tag.getID()));
     }
 
     public String getNotes() { return notes; }
@@ -117,7 +126,7 @@ public class Game implements Parcelable {
         dest.writeString(name);
         dest.writeString(gameImage);
         dest.writeString(notes);
-        dest.writeTypedList(tagArray);
+        dest.writeSerializable(tagArray);
         dest.writeInt(tagsAdded);
         dest.writeInt(edited);
     }

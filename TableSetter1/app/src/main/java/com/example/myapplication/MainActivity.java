@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener
 {
     private ArrayList<Game> catolog; // needs to be public perhaps?
-    private ArrayList<Tags> tagList;
     private RecyclerView mCatolog;
     private catalogAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
@@ -128,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         {
             game.setEdited(1);
         }
-        intent.putExtra("Tags",this.tagList);
         intent.putExtra("Game", game);
         startActivity(intent);
     }
