@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper
 {
 
@@ -62,12 +64,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
         ContentValues values = new ContentValues();
         values.put(COL2, game.getName());
         values.put(COL3, game.getGameImage());
-
-        //TODO - convert tag array into data that can be pushed into db
-
+        String tagArrayString = game.getTagArrayString();
+        values.put(COL4, tagArrayString);
         values.put(COL5, game.getNotes());
-
-        //TODO - place more info in Tags and Game classes, put into database here and method below
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME_1, null, values);
@@ -102,18 +101,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
     }
 
-    public boolean updateGameData(int id, String name, String image, String notes)
+    public boolean updateGameData(Game game)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL2, name);
-        values.put(COL3, image);
+        values.put(COL2, game.getName());
+        values.put(COL3, game.getGameImage());
+        String tagArrayString = game.getTagArrayString();
+        values.put(COL4, tagArrayString);
+        values.put(COL5, game.getNotes());
 
-        //TODO - tag data needs updating
-
-        values.put(COL5, notes);
-
-        return db.update(TABLE_NAME_1, values, COL1 + "=" + id, null) > 0;
+        return db.update(TABLE_NAME_1, values, COL1 + "=" + game.getID(), null) > 0;
     }
 
     public Game fetchGameData(String gameName)
@@ -130,9 +128,24 @@ public class DatabaseHelper extends SQLiteOpenHelper
             game.setID(cursor.getInt(0));
             game.setName(cursor.getString(1));
             game.setGameImage(cursor.getString(2));
+            String tagArrayString = cursor.getString(3);
+            ArrayList<Integer> tagIDList = new ArrayList<>();
+            if(tagArrayString != null)
+            {
+                String[] tagArray = tagArrayString.split(";");
 
-            //TODO - fetch taglist
-
+                for (int i = 0; i < tagArray.length; i++)
+                {
+                    try
+                    {
+                        tagIDList.add(Integer.parseInt(tagArray[i]));
+                    } catch (NumberFormatException e)
+                    {
+                        // nothing to be done
+                    }
+                }
+            }
+            game.setTagArray(tagIDList);
             game.setNotes(cursor.getString(4));
 
             cursor.close();
@@ -203,9 +216,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         while (cursor.moveToNext())
         {
-            //int result0 = cursor.getInt(0);
-            String result1 = cursor.getString(1);
-            result += result1 + ";";
+            int result0 = cursor.getInt(0);
+            //String result1 = cursor.getString(1);
+            result += result0 + ";";
         }
 
         cursor.close();
@@ -233,11 +246,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
 
     // TODO - perhaps change parameter from tagname to id?
-    public Tags fetchTagData(String tagName)
+    public Tags fetchTagData(String id)
     {
-        String query = "SELECT*FROM " + TABLE_NAME_2 + " WHERE " + COL2 + " = " + "?";
+        String query = "SELECT*FROM " + TABLE_NAME_2 + " WHERE " + COL1 + " = " + "?";
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, new String[]{tagName});
+        Cursor cursor = db.rawQuery(query, new String[]{id});
         Tags tag = new Tags();
 
         if (cursor.moveToFirst())

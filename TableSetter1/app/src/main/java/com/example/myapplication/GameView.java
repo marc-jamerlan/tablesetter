@@ -19,7 +19,7 @@ public class GameView extends AppCompatActivity {
     private tagAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
     private Game gameEntery;
-    private ArrayList<Tags>listoftags;
+    private ArrayList<Tags> listoftags;
 
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
@@ -30,8 +30,7 @@ public class GameView extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.gameEntery = intent.getParcelableExtra("Game");
-        this.listoftags = intent.getParcelableArrayListExtra("Tags");
-
+        this.listoftags = createTagList(this.gameEntery.getTagArray());
 
         createrecycler();
 
@@ -70,12 +69,26 @@ public class GameView extends AppCompatActivity {
         summary.setText(this.gameEntery.getNotes());
     }
 
+    public ArrayList<Tags> createTagList(ArrayList<Integer> ids)
+    {
+        ArrayList<Tags> tagList = new ArrayList<>();
+
+        if(ids != null)
+        {
+            for (int i = 0; i < ids.size(); i++)
+            {
+                tagList.add(dbHelper.fetchTagData((ids.get(i).toString())));
+            }
+        }
+        return tagList;
+    }
+
     public void createrecycler(){
         //recylceview is here
         mCatolog = findViewById(R.id.tagList);
         mCatolog.setHasFixedSize(true);
         mlayout = new LinearLayoutManager(this);
-        mAdapter = new tagAdapter(gameEntery.getTagArray()) ;
+        mAdapter = new tagAdapter(listoftags);
 
         mCatolog.setLayoutManager(mlayout);
         mCatolog.setAdapter(mAdapter);

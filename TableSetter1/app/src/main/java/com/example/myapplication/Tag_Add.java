@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class Tag_Add extends AppCompatActivity {
-    private ArrayList<Tags> tagList;
+    private ArrayList<Integer> tagList;
     private RecyclerView mCatolog;
     private tagAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
@@ -27,7 +27,7 @@ public class Tag_Add extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.gameEntry = intent.getParcelableExtra("Game");
-        //this.listoftags = intent.getParcelableArrayListExtra("Tags");
+        this.tagList = intent.getParcelableExtra("Tags");
         this.listoftags = new ArrayList<>();
 
         if(gameEntry == null){
@@ -93,7 +93,6 @@ public class Tag_Add extends AppCompatActivity {
             @Override
             public void onItemClick(int itemPos)
             {
-
                 gameEntry.setTagArray(listoftags.get(itemPos));
                 gameEntry.setTagsAdded(1);
                 openGame(Add_andor_edit.class,gameEntry);
