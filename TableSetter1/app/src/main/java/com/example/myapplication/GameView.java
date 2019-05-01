@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,7 +44,7 @@ public class GameView extends AppCompatActivity {
             }
         });
 
-        ImageButton deleteButton = findViewById(R.id.imageView7);
+        ImageButton deleteButton = findViewById(R.id.imageView5);
 
         deleteButton.setOnClickListener(new View.OnClickListener()
         {
