@@ -245,7 +245,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return db.update(TABLE_NAME_2, values, COL1 + "=" + id, null) > 0;
     }
 
-    // TODO - perhaps change parameter from tagname to id?
     public Tags fetchTagData(String id)
     {
         String query = "SELECT*FROM " + TABLE_NAME_2 + " WHERE " + COL1 + " = " + "?";
