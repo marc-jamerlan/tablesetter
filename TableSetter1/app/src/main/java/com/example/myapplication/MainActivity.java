@@ -1,15 +1,20 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
@@ -139,24 +144,22 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void openPopup(View v)
     {
-//        myDialog.setContentView(R.layout.custom_popup);
-//
-//        Button exit = (Button)myDialog.findViewById(R.id.exitbutton);
-//        Button edit = (Button)myDialog.findViewById(R.id.editbutton);
-//
-//        exit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                myDialog.dismiss();
-//            }
-//        });
-//        myDialog.show();
-
-
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.custom_menu);
         popupMenu.show();
+    }
+
+    // TODO - get button and search query from popup
+    public void openSearchPopup()
+    {
+        AlertDialog.Builder searchPopup = new AlertDialog.Builder(MainActivity.this);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View search = inflater.inflate(R.layout.search_bar, null);
+
+        searchPopup.setView(search);
+        searchPopup.show();
     }
 
     @Override
@@ -178,12 +181,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 openGame(Add_andor_edit.class, null);
                 return true;
 
+            case R.id.searchGame:
+                openSearchPopup();
+                return true;
+
             case R.id.clear:
                 Toast.makeText(this, "Cleared the catalog", Toast.LENGTH_SHORT).show();
                 dbHelper.clearGameData();
                 createlist();
                 createrecycler();
                 mAdapter.notifyDataSetChanged();
+                return true;
 
             default:
                 return false;

@@ -6,7 +6,10 @@
         android:id="@+id/new_game"
         android:title="Add New Game" />
 
-   <item
+    <item
+        android:id="@+id/searchGame"
+        android:title="Search For Game" />
+    <item
         android:id="@+id/clear"
         android:title="Clear Entire Catalog" />
 
