@@ -14,9 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GameView" />
+        <activity android:name=".GameView"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Tag_Add" />
-        <activity android:name=".Add_andor_edit" />
+        <activity android:name=".Add_andor_edit"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".MainActivity"
             android:label="TableSetter"

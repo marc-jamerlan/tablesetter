@@ -44,7 +44,7 @@ public class GameView extends AppCompatActivity {
             }
         });
 
-        ImageButton deleteButton = findViewById(R.id.imageView5);
+        ImageButton deleteButton = findViewById(R.id.deleteButton);
 
         deleteButton.setOnClickListener(new View.OnClickListener()
         {
