@@ -31,9 +31,9 @@
 
             <ImageView
                 android:id="@+id/imageView15"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_gravity="center"
+                android:layout_width="177dp"
+                android:layout_height="32dp"
+                android:layout_gravity="start"
                 app:srcCompat="@drawable/gametitle"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="144dp" />
@@ -41,17 +41,21 @@
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="19dp"
-                android:text="Game Title Here"
-                android:textColor="#fff"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Game Title Here"
+                android:fontFamily="@font/ring"
+                android:textColor="#fff"
+                android:textSize="25sp"
+
                 tools:layout_editor_absoluteY="283dp" />
 
             <ImageView
                 android:id="@+id/imageView16"
-                android:layout_width="match_parent"
-                android:layout_height="63dp"
-                android:layout_gravity="center"
+                android:layout_width="177dp"
+                android:layout_height="32dp"
+                android:layout_gravity="start"
                 app:srcCompat="@drawable/summary"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="395dp" />
