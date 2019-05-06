@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -43,7 +42,7 @@ public class Add_andor_edit extends AppCompatActivity
         final GameNameList gameNameList = (GameNameList) getApplicationContext();
         final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
-        final ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
+        final ImageButton addImage = (ImageButton) findViewById(R.id.addImage1);
 
         addImage.setOnClickListener(new View.OnClickListener()
         {
@@ -213,7 +212,7 @@ public class Add_andor_edit extends AppCompatActivity
             {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 Toast.makeText(Add_andor_edit.this, "Uploaded Image", Toast.LENGTH_SHORT).show();
-                ImageButton addImage = (ImageButton) findViewById(R.id.addImage);
+                ImageButton addImage = (ImageButton) findViewById(R.id.addImage1);
                 addImage.getLayoutParams().height = 350;
                 addImage.getLayoutParams().width = 350;
                 addImage.requestLayout();
