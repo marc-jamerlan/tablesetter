@@ -119,11 +119,11 @@
                 tools:layout_editor_absoluteY="445dp" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/playergame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:itemCount="15"
-                tools:listitem="@layout/recycler_view_item" >
-            </android.support.v7.widget.RecyclerView>
+                tools:listitem="@layout/recycler_view_item"></android.support.v7.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/textView22"
@@ -139,11 +139,11 @@
                 android:text="Tags" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/playertag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:itemCount="15"
-                tools:listitem="@layout/tagvieweritem" >
-            </android.support.v7.widget.RecyclerView>
+                tools:listitem="@layout/tagvieweritem"></android.support.v7.widget.RecyclerView>
 
             <Button
                 android:id="@+id/button"

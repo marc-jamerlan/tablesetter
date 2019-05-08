@@ -10,6 +10,9 @@
         android:id="@+id/searchGame"
         android:title="Search For Game" />
     <item
+        android:id="@+id/player_page"
+        android:title="Add A Player" />
+    <item
         android:id="@+id/clear"
         android:title="Clear Entire Catalog" />
 

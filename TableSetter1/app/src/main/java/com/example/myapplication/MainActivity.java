@@ -136,6 +136,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         startActivity(intent);
     }
 
+    public void openplayer()
+    {
+        Intent intent = new Intent(this, playerpage.class);
+
+        startActivity(intent);
+    }
+
     public void openPopup(View v)
     {
         PopupMenu popupMenu = new PopupMenu(this, v);
@@ -200,6 +207,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 createrecycler();
                 mAdapter.notifyDataSetChanged();
                 return true;
+            case R.id.player_page:
+                openplayer();
+                return true;
+
 
             default:
                 return false;
