@@ -13,6 +13,9 @@
         android:id="@+id/home"
         android:title="Back to Home" />
     <item
+        android:id="@+id/player_page"
+        android:title="Players" />
+    <item
         android:id="@+id/clear"
         android:title="Clear Entire Catalog" />
 
