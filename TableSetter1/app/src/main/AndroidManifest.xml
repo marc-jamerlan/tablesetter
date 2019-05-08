@@ -14,6 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TitleScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".GameView"
             android:windowSoftInputMode="adjustPan" />
@@ -27,14 +34,9 @@
             android:name=".MainActivity"
             android:label="TableSetter"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".playerpage" />
-        <activity android:name=".player_addtion"></activity>
+        <activity android:name=".player_addtion" />
     </application>
 
 </manifest>

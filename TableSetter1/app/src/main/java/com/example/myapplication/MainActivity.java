@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private RecyclerView mCatolog;
     private catalogAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
-    private Dialog myDialog;
+    private String searchQuery;
 
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
@@ -43,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        myDialog = new Dialog(this);
 
         createlist();
         createrecycler();
@@ -136,12 +136,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         startActivity(intent);
     }
 
-    public void open(Class des)
-    {
-        Intent intent = new Intent(this, des);
-        startActivity(intent);
-    }
-
     public void openPopup(View v)
     {
         PopupMenu popupMenu = new PopupMenu(this, v);
@@ -153,10 +147,24 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     // TODO - get button and search query from popup
     public void openSearchPopup()
     {
-        AlertDialog.Builder searchPopup = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog.Builder searchPopupBuilder = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog searchPopup = searchPopupBuilder.create();
 
         LayoutInflater inflater = this.getLayoutInflater();
-        View search = inflater.inflate(R.layout.search_bar, null);
+        final View search = inflater.inflate(R.layout.search_bar, null);
+
+        ImageButton submit = search.findViewById(R.id.searchSubmit);
+        submit.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                EditText query = search.findViewById(R.id.searchbar);
+                searchQuery = query.getText().toString();
+
+                searchPopup.dismiss();
+            }
+        });
 
         searchPopup.setView(search);
         searchPopup.show();
