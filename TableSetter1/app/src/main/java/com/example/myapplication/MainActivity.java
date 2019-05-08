@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private RecyclerView mCatolog;
     private catalogAdapter mAdapter;
     private RecyclerView.LayoutManager mlayout;
-    private String searchQuery;
 
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
@@ -125,6 +124,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         });
     }
 
+    public void open(Class des)
+    {
+        Intent intent = new Intent(this, des);
+        startActivity(intent);
+    }
+
     public void openGame(Class des, Game game)
     {
         Intent intent = new Intent(this, des);
@@ -144,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         popupMenu.show();
     }
 
-    // TODO - get button and search query from popup
     public void openSearchPopup()
     {
         final AlertDialog.Builder searchPopupBuilder = new AlertDialog.Builder(MainActivity.this);
@@ -160,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             public void onClick(View v)
             {
                 EditText query = search.findViewById(R.id.searchbar);
-                searchQuery = query.getText().toString();
+                createSearchResults(query.getText().toString());
 
                 searchPopup.dismiss();
             }
@@ -168,6 +172,35 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         searchPopup.setView(search);
         searchPopup.show();
+    }
+
+    public void createSearchResults(String query)
+    {
+        String tableData = dbHelper.loadGameData();
+        Game currentGame;
+        String name, notes;
+
+        catolog = new ArrayList<>();
+
+        if (!tableData.equals(""))
+        {
+            String[] tableArray = tableData.split(";");
+
+            for (int i = 0; i < tableArray.length; i++)
+            {
+                currentGame = dbHelper.fetchGameData(tableArray[i]);
+                name = currentGame.getName();
+                notes = currentGame.getNotes();
+
+                if(name.toUpperCase().contains(query.toUpperCase()) || notes.toUpperCase().contains(query.toUpperCase()))
+                {
+                    catolog.add(currentGame);
+                }
+            }
+        }
+
+        createrecycler();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -191,6 +224,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             case R.id.searchGame:
                 openSearchPopup();
+                return true;
+
+            case R.id.home:
+                open(TitleScreen.class);
                 return true;
 
             case R.id.clear:
