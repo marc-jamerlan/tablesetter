@@ -1,40 +1,29 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.BaseColumns;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener
 {
-    private ArrayList<Game> catolog; // needs to be public perhaps?
-    private RecyclerView mCatolog;
+    private ArrayList<Game> catalog; // needs to be public perhaps?
+    private RecyclerView mCatalog;
     private catalogAdapter mAdapter;
-    private RecyclerView.LayoutManager mlayout;
+    private RecyclerView.LayoutManager mLayout;
 
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
@@ -76,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void createlist()
     {
-        //this is for the catolog
+        //this is for the catalog
 
         GameNameList gameNameList = new GameNameList();
 
@@ -92,12 +81,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         }
 
-        catolog = new ArrayList<>();
+        catalog = new ArrayList<>();
 
         for (int i = 0; i < gameNameList.getLength(); i++)
         {
             Game currentGame = dbHelper.fetchGameData(gameNameList.getGameNameList().get(i));
-            catolog.add(currentGame);
+            catalog.add(currentGame);
         }
     }
 
@@ -105,20 +94,20 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     {
         //recylceview is here
 
-        mCatolog = findViewById(R.id.recylceview);
-        mCatolog.setHasFixedSize(true);
-        mlayout = new LinearLayoutManager(this);
-        mAdapter = new catalogAdapter(catolog);
+        mCatalog = findViewById(R.id.recylceview);
+        mCatalog.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(this);
+        mAdapter = new catalogAdapter(catalog);
 
-        mCatolog.setLayoutManager(mlayout);
-        mCatolog.setAdapter(mAdapter);
+        mCatalog.setLayoutManager(mLayout);
+        mCatalog.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener()
         {
             @Override
             public void onItemClick(int itemPos)
             {
-                openGame(GameView.class, catolog.get(itemPos));
+                openGame(GameView.class, catalog.get(itemPos));
 
             }
         });
@@ -138,13 +127,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             game.setEdited(1);
         }
         intent.putExtra("Game", game);
-        startActivity(intent);
-    }
-
-    public void openplayer()
-    {
-        Intent intent = new Intent(this, playerpage.class);
-
         startActivity(intent);
     }
 
@@ -187,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Game currentGame;
         String name, notes;
 
-        catolog = new ArrayList<>();
+        catalog = new ArrayList<>();
 
         if (!tableData.equals(""))
         {
@@ -201,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
                 if(name.toUpperCase().contains(query.toUpperCase()) || notes.toUpperCase().contains(query.toUpperCase()))
                 {
-                    catolog.add(currentGame);
+                    catalog.add(currentGame);
                 }
             }
         }
@@ -244,11 +226,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 createrecycler();
                 mAdapter.notifyDataSetChanged();
                 return true;
-
-                case R.id.player_page:
-                openplayer();
-                return true;
-
 
             default:
                 return false;

@@ -108,6 +108,8 @@ public class playerpage extends AppCompatActivity {
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
+    // TODO - use startActivityforResult() when requesting image, see add_andor_edit.class
+    /*
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -134,4 +136,5 @@ public class playerpage extends AppCompatActivity {
             }
         }
     }
+    */
 }
