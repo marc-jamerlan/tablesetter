@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class tagAdapter extends RecyclerView.Adapter<tagAdapter.tagAdapterHolder> {
 
     private catalogAdapter.onItemClickListener mListener;
-    private ArrayList<Tags> tagsArrayList;
+    private ArrayList<Tag> tagsArrayList;
 
     public interface onItemClickListener{
         void onItemClick(int itemPos);
@@ -50,7 +50,7 @@ public class tagAdapter extends RecyclerView.Adapter<tagAdapter.tagAdapterHolder
         this.tagsArrayList = new ArrayList<>();
     }
 
-    tagAdapter(ArrayList<Tags> a){
+    tagAdapter(ArrayList<Tag> a){
         this.tagsArrayList = a;
     }
 
@@ -67,7 +67,7 @@ public class tagAdapter extends RecyclerView.Adapter<tagAdapter.tagAdapterHolder
 
     @Override
     public void onBindViewHolder(@NonNull tagAdapterHolder tagAdapterHolder, int i) {
-        Tags tag = tagsArrayList.get(i);
+        Tag tag = tagsArrayList.get(i);
         tagAdapterHolder.name.setText(tag.getName());
     }
 

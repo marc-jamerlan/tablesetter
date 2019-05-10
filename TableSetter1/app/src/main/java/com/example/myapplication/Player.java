@@ -9,26 +9,26 @@ import java.util.ArrayList;
 public class Player {
     private int ID;
     private String name;
-    private String gameImage;
-    private ArrayList<String> gameList;
-    private ArrayList<Integer> customTags;
+    private String playerImage;
+    private ArrayList<String> gameNameList;
+    private ArrayList<Integer> tagIDList;
     private String notes;
 
     public Player(String name,String notes){
         this.ID = -1;
         this.name = name;
-        this.gameImage = "";
-        this.gameList = new ArrayList<>();
-        this.customTags = new ArrayList<>();
+        this.playerImage = "";
+        this.gameNameList = new ArrayList<>();
+        this.tagIDList = new ArrayList<>();
         this.notes = notes;
     }
 
     public Player(){
         this.ID = -1;
         this.name = "";
-        this.gameImage = "";
-        this.gameList = new ArrayList<>();
-        this.customTags = new ArrayList<>();
+        this.playerImage = "";
+        this.gameNameList = new ArrayList<>();
+        this.tagIDList = new ArrayList<>();
         this.notes = "";
     }
 
@@ -38,22 +38,22 @@ public class Player {
         this.name = name;
     }
 
-    public void setGameImage(String gameImage) { this.gameImage = gameImage; }
+    public void setPlayerImage(String playerImage) { this.playerImage = playerImage; }
 
-    public void setGameList(ArrayList<String> gameList){
-        this.gameList = gameList;
+    public void setGameNameList(ArrayList<String> gameNameList){
+        this.gameNameList = gameNameList;
     }
 
     public void addGameList(String gameName){
-        this.gameList.add(gameName);
+        this.gameNameList.add(gameName);
     }
 
-    public void setCustomTags(ArrayList<Integer> taglist){
-        this.customTags = taglist;
+    public void setTagIDList(ArrayList<Integer> taglist){
+        this.tagIDList = taglist;
     }
 
     public void addCustomTag(Integer tag){
-        this.customTags.add(tag);
+        this.tagIDList.add(tag);
     }
 
     public void setNotes(String notes){
@@ -68,22 +68,46 @@ public class Player {
         return this.name;
     }
 
-    public String getGameImage() { return gameImage; }
+    public String getPlayerImage() { return playerImage; }
 
-    public ArrayList<String> getGameList() {
-        return this.gameList;
+    public ArrayList<String> getGameNameList() {
+        return this.gameNameList;
     }
 
     public String getSingleGame(int location){
-        return this.gameList.get(location);
+        return this.gameNameList.get(location);
     }
 
-    public ArrayList<Integer> getCustomTags() {
-        return this.customTags;
+    public String getGameNameListString()
+    {
+        StringBuilder gameString = new StringBuilder();
+        for(int i = 0; i < gameNameList.size(); i++)
+        {
+            gameString.append(gameNameList.get(i));
+            gameString.append(";");
+        }
+
+        return gameString.toString();
+    }
+
+    public ArrayList<Integer> getTagIDList() {
+        return this.tagIDList;
     }
 
     public int getSingleTag(int location){
-        return this.customTags.get(location);
+        return this.tagIDList.get(location);
+    }
+
+    public String getTagIDListString()
+    {
+        StringBuilder tagString = new StringBuilder();
+        for(int i = 0; i < tagIDList.size(); i++)
+        {
+            tagString.append(tagIDList.get(i));
+            tagString.append(";");
+        }
+
+        return tagString.toString();
     }
 
     public String getNotes() {
@@ -95,7 +119,7 @@ public class Player {
     {
         try
         {
-            byte[] encodeByte = Base64.decode(gameImage, Base64.DEFAULT);
+            byte[] encodeByte = Base64.decode(playerImage, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         } catch(Exception e)
         {

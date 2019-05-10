@@ -8,17 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class Tag_Add extends AppCompatActivity {
-    private ArrayList<Integer> tagList;
-    private RecyclerView mCatolog;
+    private ArrayList<Integer> tagIDList;
+    private RecyclerView mCatalog;
     private tagAdapter mAdapter;
-    private RecyclerView.LayoutManager mlayout;
+    private RecyclerView.LayoutManager mLayout;
     private Game gameEntry;
-    private ArrayList<Tags> listoftags;
+    private ArrayList<Tag> TagObjectHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +26,8 @@ public class Tag_Add extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.gameEntry = intent.getParcelableExtra("Game");
-        this.tagList = intent.getParcelableExtra("Tags");
-        this.listoftags = new ArrayList<>();
+        this.tagIDList = intent.getParcelableExtra("Tag");
+        this.TagObjectHolder = new ArrayList<>();
 
         if(gameEntry == null){
             gameEntry = new Game();
@@ -42,7 +41,7 @@ public class Tag_Add extends AppCompatActivity {
 
         for (int i = 0; i < tagArray.length; i++)
         {
-            this.listoftags.add(dbHelper.fetchTagData(tagArray[i]));
+            this.TagObjectHolder.add(dbHelper.fetchTagData(tagArray[i]));
         }
 
         createrecycler();
@@ -56,10 +55,10 @@ public class Tag_Add extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Tags newTag = new Tags(name.getText().toString(), summary.getText().toString());
+                Tag newTag = new Tag(name.getText().toString(), summary.getText().toString());
                 name.setText("  ");
                 summary.setText("  ");
-                listoftags.add(newTag);
+                TagObjectHolder.add(newTag);
                 dbHelper.addTagData(newTag);
                 // layout need to be let out
                 mAdapter.notifyDataSetChanged();
@@ -73,7 +72,7 @@ public class Tag_Add extends AppCompatActivity {
     public void openGame(Class des, Game game)
     {
         Intent intent = new Intent(this, des);
-        intent.putExtra("Tags",this.tagList);
+        intent.putExtra("Tag",this.tagIDList);
         intent.putExtra("Game", game);
         startActivity(intent);
     }
@@ -81,20 +80,20 @@ public class Tag_Add extends AppCompatActivity {
     public void createrecycler()
     {
         //recylceview is here
-        mCatolog = findViewById(R.id.recyclerView);
-        mCatolog.setHasFixedSize(true);
-        mlayout = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
-        mAdapter = new tagAdapter(listoftags);
+        mCatalog = findViewById(R.id.recyclerView);
+        mCatalog.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
+        mAdapter = new tagAdapter(TagObjectHolder);
 
-        mCatolog.setLayoutManager(mlayout);
-        mCatolog.setAdapter(mAdapter);
+        mCatalog.setLayoutManager(mLayout);
+        mCatalog.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener()
         {
             @Override
             public void onItemClick(int itemPos)
             {
-                gameEntry.setTagArray(listoftags.get(itemPos));
+                gameEntry.setTagIDList(TagObjectHolder.get(itemPos));
                 gameEntry.setTagsAdded(1);
                 openGame(Add_andor_edit.class,gameEntry);
 

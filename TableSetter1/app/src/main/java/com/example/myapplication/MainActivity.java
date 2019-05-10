@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener
 {
-    private ArrayList<Game> catalog; // needs to be public perhaps?
+    private ArrayList<Game> catalog;
     private RecyclerView mCatalog;
     private catalogAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void createrecycler()
     {
-        //recylceview is here
+        //recycleview is here
 
         mCatalog = findViewById(R.id.recylceview);
         mCatalog.setHasFixedSize(true);

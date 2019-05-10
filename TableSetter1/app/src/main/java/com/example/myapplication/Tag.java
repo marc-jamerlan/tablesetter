@@ -3,33 +3,33 @@ package com.example.myapplication;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Tags implements Parcelable{
+public class Tag implements Parcelable{
     private int ID;
     private String name;
     private String notes;
 
-    public Tags(){}
+    public Tag(){}
 
-    public Tags( String name, String notes)
+    public Tag(String name, String notes)
     {
         this.name = name;
         this.notes = notes;
     }
-    protected Tags(Parcel in) {
+    protected Tag(Parcel in) {
         ID = in.readInt();
         name = in.readString();
         notes = in.readString();
     }
 
-    public static final Creator<Tags> CREATOR = new Creator<Tags>() {
+    public static final Creator<Tag> CREATOR = new Creator<Tag>() {
         @Override
-        public Tags createFromParcel(Parcel in) {
-            return new Tags(in);
+        public Tag createFromParcel(Parcel in) {
+            return new Tag(in);
         }
 
         @Override
-        public Tags[] newArray(int size) {
-            return new Tags[size];
+        public Tag[] newArray(int size) {
+            return new Tag[size];
         }
     };
 

@@ -1,10 +1,6 @@
 package com.example.myapplication;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,22 +8,20 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class playerpage extends AppCompatActivity {
 
-    private ArrayList<Game> catolog; // needs to be public perhaps?
-    private ArrayList<Tags> tagList;
+    private ArrayList<Game> catalog;
+    private ArrayList<Tag> tagList;
 
-    private RecyclerView mCatologPlayer;
+    private RecyclerView mCatalogPlayer;
     private catalogAdapter mAdapterPlayer;
     private RecyclerView.LayoutManager mlayoutPlayer;
 
-    private RecyclerView mCatologTag;
+    private RecyclerView mCatalogTag;
     private tagAdapter mAdapterTag;
     private RecyclerView.LayoutManager mlayoutTag;
 
@@ -42,7 +36,7 @@ public class playerpage extends AppCompatActivity {
         RecyclerView games = findViewById(R.id.playergame);
         RecyclerView tags = findViewById(R.id.playertag);
 
-        this.catolog = new ArrayList<>();
+        this.catalog = new ArrayList<>();
         this.tagList = new ArrayList<>();
 
         createrecyclerPlayer();
@@ -52,20 +46,20 @@ public class playerpage extends AppCompatActivity {
     public void createrecyclerPlayer()
     {
         //recylceview is here
-        mCatologPlayer = findViewById(R.id.playergame);
-        mCatologPlayer.setHasFixedSize(true);
+        mCatalogPlayer = findViewById(R.id.playergame);
+        mCatalogPlayer.setHasFixedSize(true);
         mlayoutPlayer = new LinearLayoutManager(this);
-        mAdapterPlayer = new catalogAdapter(this.catolog);
+        mAdapterPlayer = new catalogAdapter(this.catalog);
 
-        mCatologPlayer.setLayoutManager(mlayoutPlayer);
-        mCatologPlayer.setAdapter(mAdapterPlayer);
+        mCatalogPlayer.setLayoutManager(mlayoutPlayer);
+        mCatalogPlayer.setAdapter(mAdapterPlayer);
 
         mAdapterPlayer.setOnItemClickListener(new catalogAdapter.onItemClickListener()
         {
             @Override
             public void onItemClick(int itemPos)
             {
-                catolog.remove(itemPos);
+                catalog.remove(itemPos);
                 mAdapterPlayer.notifyDataSetChanged();
             }
         });
@@ -76,13 +70,13 @@ public class playerpage extends AppCompatActivity {
     public void createrecyclerTag()
     {
         //recylceview is here
-        mCatologTag = findViewById(R.id.playertag);
-        mCatologTag.setHasFixedSize(true);
+        mCatalogTag = findViewById(R.id.playertag);
+        mCatalogTag.setHasFixedSize(true);
         mlayoutTag = new LinearLayoutManager(this);
         mAdapterTag = new tagAdapter(this.tagList);
 
-        mCatologTag.setLayoutManager(mlayoutTag);
-        mCatologTag.setAdapter(mAdapterTag);
+        mCatalogTag.setLayoutManager(mlayoutTag);
+        mCatalogTag.setAdapter(mAdapterTag);
 
         mAdapterTag.setOnItemClickListener(new catalogAdapter.onItemClickListener()
         {

@@ -14,11 +14,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class GameView extends AppCompatActivity {
-    private RecyclerView mCatolog;
+    private RecyclerView mCatalog;
     private tagAdapter mAdapter;
-    private RecyclerView.LayoutManager mlayout;
-    private Game gameEntery;
-    private ArrayList<Tags> listoftags;
+    private RecyclerView.LayoutManager mLayout;
+    private Game gameEntry;
+    private ArrayList<Tag> tagObjectHolder;
 
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
 
@@ -28,8 +28,8 @@ public class GameView extends AppCompatActivity {
         setContentView(R.layout.activity_game_view);
 
         Intent intent = getIntent();
-        this.gameEntery = intent.getParcelableExtra("Game");
-        this.listoftags = createTagList(this.gameEntery.getTagArray());
+        this.gameEntry = intent.getParcelableExtra("Game");
+        this.tagObjectHolder = createTagList(this.gameEntry.getTagIDList());
 
         createrecycler();
 
@@ -61,16 +61,16 @@ public class GameView extends AppCompatActivity {
 
         TextView summary = findViewById(R.id.textView8);
 
-        pic.setImageBitmap(this.gameEntery.decodeGameImage());
+        pic.setImageBitmap(this.gameEntry.decodeGameImage());
 
-        name.setText(this.gameEntery.getName());
+        name.setText(this.gameEntry.getName());
 
-        summary.setText(this.gameEntery.getNotes());
+        summary.setText(this.gameEntry.getNotes());
     }
 
-    public ArrayList<Tags> createTagList(ArrayList<Integer> ids)
+    public ArrayList<Tag> createTagList(ArrayList<Integer> ids)
     {
-        ArrayList<Tags> tagList = new ArrayList<>();
+        ArrayList<Tag> tagList = new ArrayList<>();
 
         if(ids != null)
         {
@@ -84,19 +84,19 @@ public class GameView extends AppCompatActivity {
 
     public void createrecycler(){
         //recylceview is here
-        mCatolog = findViewById(R.id.tagList);
-        mCatolog.setHasFixedSize(true);
-        mlayout = new LinearLayoutManager(this);
-        mAdapter = new tagAdapter(listoftags);
+        mCatalog = findViewById(R.id.tagList);
+        mCatalog.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(this);
+        mAdapter = new tagAdapter(tagObjectHolder);
 
-        mCatolog.setLayoutManager(mlayout);
-        mCatolog.setAdapter(mAdapter);
+        mCatalog.setLayoutManager(mLayout);
+        mCatalog.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int itemPos) {
 
-                //Toast.makeText(this,gameEntery.getTagArray().get(itemPos).getNotes(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,gameEntry.getTagIDList().get(itemPos).getNotes(),Toast.LENGTH_LONG).show();
 
             }
         });
@@ -115,14 +115,14 @@ public class GameView extends AppCompatActivity {
 
     public void edit(){
         Intent intent = new Intent(this,Add_andor_edit.class);
-        intent.putExtra("Tags",this.listoftags);
-        intent.putExtra("Game", this.gameEntery);
+        intent.putExtra("Tag",this.tagObjectHolder);
+        intent.putExtra("Game", this.gameEntry);
         startActivity(intent);
     }
 
     public void deleteGame(){
         Intent intent = new Intent(this,MainActivity.class);
-        if(dbHelper.deleteGameData(gameEntery.getID()))
+        if(dbHelper.deleteGameData(gameEntry.getID()))
         {
             Toast.makeText(this, "Game Deleted", Toast.LENGTH_SHORT).show();
         }

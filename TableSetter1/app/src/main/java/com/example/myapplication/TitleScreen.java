@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Button;
 
 public class TitleScreen extends AppCompatActivity
 {
@@ -32,7 +31,7 @@ public class TitleScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                open(player_addtion.class);
+                open(player_add.class);
             }
         });
 

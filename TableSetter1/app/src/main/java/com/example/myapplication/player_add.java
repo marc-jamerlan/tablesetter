@@ -3,7 +3,7 @@ package com.example.myapplication;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class player_addtion extends AppCompatActivity {
+public class player_add extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

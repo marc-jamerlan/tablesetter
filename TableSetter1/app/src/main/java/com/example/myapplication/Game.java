@@ -13,7 +13,7 @@ public class Game implements Parcelable {
     private int ID;
     private String name;
     private String gameImage;
-    private ArrayList<Integer> tagArray; // change this to an array of tag IDs perhaps?
+    private ArrayList<Integer> tagIDList;
     private String notes;
     private int tagsAdded;
     private int edited;
@@ -22,7 +22,7 @@ public class Game implements Parcelable {
         this.ID = -1;
         this.name = "";
         this.gameImage = "";
-        this.tagArray = new ArrayList<>();
+        this.tagIDList = new ArrayList<>();
         this.notes = "";
         this.tagsAdded = 0;
         this.edited = 0;
@@ -32,7 +32,7 @@ public class Game implements Parcelable {
         this.ID = id;
         this.name = a;
         this.gameImage = "";
-        this.tagArray = new ArrayList<>();
+        this.tagIDList = new ArrayList<>();
         this.notes = notes;
         this.tagsAdded = 0;
         this.edited = 0;
@@ -43,7 +43,7 @@ public class Game implements Parcelable {
         name = in.readString();
         gameImage = in.readString();
         notes = in.readString();
-        tagArray = (ArrayList<Integer>) in.readSerializable();
+        tagIDList = (ArrayList<Integer>) in.readSerializable();
         tagsAdded = in.readInt();
         edited = in.readInt();
     }
@@ -78,29 +78,29 @@ public class Game implements Parcelable {
         this.name = name;
     }
 
-    public void setTagArray(Tags tag){this.tagArray.add(tag.getID());}
+    public void setTagIDList(Tag tag){this.tagIDList.add(tag.getID());}
 
-    public void setTagArray(ArrayList<Integer> taglist){ this.tagArray = taglist; }
+    public void setTagIDList(ArrayList<Integer> taglist){ this.tagIDList = taglist; }
 
-    public ArrayList<Integer> getTagArray()
+    public ArrayList<Integer> getTagIDList()
     {
-        return tagArray;
+        return tagIDList;
     }
 
-    public String getTagArrayString()
+    public String getTagIDListString()
     {
         StringBuilder tagString = new StringBuilder();
-        for(int i = 0; i < tagArray.size(); i++)
+        for(int i = 0; i < tagIDList.size(); i++)
         {
-            tagString.append(tagArray.get(i));
+            tagString.append(tagIDList.get(i));
             tagString.append(";");
         }
 
         return tagString.toString();
     }
 
-    public void removeTag(Tags tag){
-        this.tagArray.remove(this.tagArray.indexOf(tag.getID()));
+    public void removeTag(Tag tag){
+        this.tagIDList.remove(this.tagIDList.indexOf(tag.getID()));
     }
 
     public String getNotes() { return notes; }
@@ -126,7 +126,7 @@ public class Game implements Parcelable {
         dest.writeString(name);
         dest.writeString(gameImage);
         dest.writeString(notes);
-        dest.writeSerializable(tagArray);
+        dest.writeSerializable(tagIDList);
         dest.writeInt(tagsAdded);
         dest.writeInt(edited);
     }

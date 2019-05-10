@@ -24,12 +24,12 @@ import java.util.ArrayList;
 public class Add_andor_edit extends AppCompatActivity
 {
     private static int RESULT_LOAD_IMAGE = 1;
-    private RecyclerView mCatolog;
+    private RecyclerView mCatalog;
     private tagAdapter mAdapter;
-    private RecyclerView.LayoutManager mlayout;
+    private RecyclerView.LayoutManager mLayout;
     private Game gameEntry;
-    private ArrayList<Tags> listoftags;
-    private ArrayList<Integer> holdingtags;
+    private ArrayList<Tag> TagObjectHolder;
+    private ArrayList<Integer> tagIDHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,11 +73,11 @@ public class Add_andor_edit extends AppCompatActivity
 
         Intent intent = getIntent();
         this.gameEntry = intent.getParcelableExtra("Game");
-        this.listoftags = intent.getParcelableArrayListExtra("Tags");
+        this.TagObjectHolder = intent.getParcelableArrayListExtra("Tag");
 
         if(gameEntry == null)
         {
-            holdingtags = new ArrayList<>();
+            tagIDHolder = new ArrayList<>();
         }
 
         else
@@ -85,15 +85,15 @@ public class Add_andor_edit extends AppCompatActivity
             edit.setText(this.gameEntry.getName());
             edit2.setText(this.gameEntry.getNotes());
             addImage.setImageBitmap(this.gameEntry.decodeGameImage());
-            holdingtags = gameEntry.getTagArray();
+            tagIDHolder = gameEntry.getTagIDList();
 
-            if(listoftags == null)
+            if(TagObjectHolder == null)
             {
-                listoftags = new ArrayList<>();
+                TagObjectHolder = new ArrayList<>();
 
-                for (int i = 0; i < holdingtags.size(); i++)
+                for (int i = 0; i < tagIDHolder.size(); i++)
                 {
-                    listoftags.add(dbHelper.fetchTagData(holdingtags.get(i).toString()));
+                    TagObjectHolder.add(dbHelper.fetchTagData(tagIDHolder.get(i).toString()));
                 }
             }
         }
@@ -139,11 +139,11 @@ public class Add_andor_edit extends AppCompatActivity
                     gameNameList.appendList(gameName);
                     newGame.setGameImage(imageToString(((BitmapDrawable)addImage.getDrawable()).getBitmap()));
                     newGame.setNotes(edit2.getText().toString());
-                    if(holdingtags.size() != 0)
+                    if(tagIDHolder.size() != 0)
                     {
                         newGame.setTagsAdded(1);
                     }
-                    newGame.setTagArray(holdingtags);
+                    newGame.setTagIDList(tagIDHolder);
                     newGame.setEdited(1);
 
                     dbHelper.addGameData(newGame);
@@ -169,7 +169,7 @@ public class Add_andor_edit extends AppCompatActivity
                     gameUpdate.setName(edit.getText().toString());
                     gameUpdate.setGameImage(imageToString(((BitmapDrawable)addImage.getDrawable()).getBitmap()));
                     gameUpdate.setNotes(edit2.getText().toString());
-                    gameUpdate.setTagArray(holdingtags);
+                    gameUpdate.setTagIDList(tagIDHolder);
 
                     for (int i = 0; i < gameNameList.getLength(); i++)
                     {
@@ -239,21 +239,21 @@ public class Add_andor_edit extends AppCompatActivity
     public void createrecycler()
     {
         //recylceview is here
-        mCatolog = findViewById(R.id.recyclerViewtag);
-        mCatolog.setHasFixedSize(true);
-        mlayout = new LinearLayoutManager(this);
-        mAdapter = new tagAdapter(this.listoftags);
+        mCatalog = findViewById(R.id.recyclerViewtag);
+        mCatalog.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(this);
+        mAdapter = new tagAdapter(this.TagObjectHolder);
 
-        mCatolog.setLayoutManager(mlayout);
-        mCatolog.setAdapter(mAdapter);
+        mCatalog.setLayoutManager(mLayout);
+        mCatalog.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener()
         {
             @Override
             public void onItemClick(int itemPos)
             {
-                Tags removedTag = listoftags.remove(itemPos);
-                holdingtags.remove(holdingtags.indexOf(removedTag.getID()));
+                Tag removedTag = TagObjectHolder.remove(itemPos);
+                tagIDHolder.remove(tagIDHolder.indexOf(removedTag.getID()));
                 mAdapter.notifyDataSetChanged();
                 Toast.makeText(Add_andor_edit.this, "Removed Tag", Toast.LENGTH_SHORT).show();
             }
@@ -272,7 +272,6 @@ public class Add_andor_edit extends AppCompatActivity
     public void openGame(Class des, Game game)
     {
         Intent intent = new Intent(this, des);
-        //intent.putExtra("Tags",this.listoftags);
         intent.putExtra("Game", game);
         startActivity(intent);
     }
