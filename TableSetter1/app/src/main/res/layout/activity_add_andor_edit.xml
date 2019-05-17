@@ -10,7 +10,7 @@
     <include
         layout="@layout/add_edit_content"
         android:layout_width="413dp"
-        android:layout_height="664dp"
+        android:layout_height="610dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
