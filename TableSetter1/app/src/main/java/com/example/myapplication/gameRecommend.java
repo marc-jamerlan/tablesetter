@@ -142,7 +142,7 @@ public class gameRecommend extends AppCompatActivity {
         PlayerCatalog.setLayoutManager(PlayerLayout);
         PlayerCatalog.setAdapter(PlayerAdapter);
 
-        PlayerAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener()
+        PlayerAdapter.setOnItemClickListener(new playerAdapter.onItemClickListener()
         {
             @Override
             public void onItemClick(int itemPos)

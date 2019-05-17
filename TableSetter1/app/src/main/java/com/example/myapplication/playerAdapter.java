@@ -10,41 +10,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-public class playerAdapter  extends RecyclerView.Adapter<catalogAdapter.catalogAdapterHolder> {
+public class playerAdapter  extends RecyclerView.Adapter<playerAdapter.playerAdapterHolder> {
 
     private ArrayList<Player> playerArrayList;
-    private catalogAdapter.onItemClickListener mListener;
+    private playerAdapter.onItemClickListener mListener;
 
     public interface onItemClickListener{
         void onItemClick(int itemPos);
     }
 
-    public void setOnItemClickListener(catalogAdapter.onItemClickListener listener){
+    public void setOnItemClickListener(playerAdapter.onItemClickListener listener){
         this.mListener = listener;
     }
 
-    public static class catalogAdapterHolder extends RecyclerView.ViewHolder{
+    public static class playerAdapterHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
         public TextView playerName;
         public CheckBox box;
 
-        public catalogAdapterHolder(@NonNull View itemView, final catalogAdapter.onItemClickListener listener) {
+        public playerAdapterHolder(@NonNull View itemView, final playerAdapter.onItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView11);
             playerName = itemView.findViewById(R.id.playerName);
             box = itemView.findViewById(R.id.checkBox);
-
-            box.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(box.isChecked()){
-                        box.setChecked(false);
-                    } else {
-                        box.setChecked(true);
-                    }
-
-                }
-            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,6 +41,11 @@ public class playerAdapter  extends RecyclerView.Adapter<catalogAdapter.catalogA
                         int postion = getAdapterPosition();
                         if(postion != RecyclerView.NO_POSITION){
                             listener.onItemClick(postion);
+                        }
+                        if(box.isChecked()){
+                            box.setChecked(false);
+                        } else {
+                            box.setChecked(true);
                         }
                     }
                 }
@@ -67,21 +60,21 @@ public class playerAdapter  extends RecyclerView.Adapter<catalogAdapter.catalogA
     }
 
 
-    public catalogAdapter.catalogAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public playerAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recycler_view_item,viewGroup,false);
+                .inflate(R.layout.playeritem,viewGroup,false);
 
-        catalogAdapter.catalogAdapterHolder cah = new catalogAdapter.catalogAdapterHolder(v,mListener);
-        return cah;
+        playerAdapter.playerAdapterHolder pap = new playerAdapter.playerAdapterHolder(v,mListener);
+        return pap;
     }
 
 
-    public void onBindViewHolder(@NonNull catalogAdapter.catalogAdapterHolder catalogAdapterHolder, int i) {
+    public void onBindViewHolder(@NonNull playerAdapter.playerAdapterHolder playerAdapterHolder, int i) {
         Player currentplayer = playerArrayList.get(i);
 
         if(currentplayer != null){
-            catalogAdapterHolder.mImageView.setImageBitmap(currentplayer.decodeGameImage());
-            catalogAdapterHolder.gameName.setText(currentplayer.getName());
+            playerAdapterHolder.mImageView.setImageBitmap(currentplayer.decodeGameImage());
+            playerAdapterHolder.playerName.setText(currentplayer.getName());
         }
 
 
