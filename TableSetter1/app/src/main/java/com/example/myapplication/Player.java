@@ -2,11 +2,13 @@ package com.example.myapplication;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Base64;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Parcelable {
     private int ID;
     private String name;
     private String playerImage;
@@ -31,6 +33,18 @@ public class Player {
         this.tagIDList = new ArrayList<>();
         this.notes = "";
     }
+
+    protected Player(Parcel in){
+        this.ID = in.readInt();
+        this.name = in.readString();
+        this.playerImage = in.readString();
+        this.gameNameList = (ArrayList<String>) in.readSerializable();
+        this.tagIDList = (ArrayList<Integer>) in.readSerializable();
+        this.notes = in.readString();
+
+    }
+
+
 
     public void setID(int ID){ this.ID = ID; }
 
@@ -112,6 +126,34 @@ public class Player {
 
     public String getNotes() {
         return this.notes;
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Player> CREATOR = new Creator<Player>() {
+        @Override
+        public Player createFromParcel(Parcel in) {
+            return new Player(in);
+        }
+
+        @Override
+        public Player[] newArray(int size) {
+            return new Player[size];
+        }
+    };
+
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ID);
+        dest.writeString(name);
+        dest.writeString(playerImage);
+        dest.writeString(notes);
+        dest.writeSerializable(gameNameList);
+        dest.writeSerializable(tagIDList);
+        //dest.writeInt(tagsAdded);
+        //dest.writeInt(edited);
     }
 
 
