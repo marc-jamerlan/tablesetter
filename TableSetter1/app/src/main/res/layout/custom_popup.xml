@@ -34,7 +34,7 @@
                 android:layout_width="177dp"
                 android:layout_height="32dp"
                 android:layout_gravity="start"
-                app:srcCompat="@drawable/gametitle"
+                app:srcCompat="@drawable/newgametitle"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="144dp" />
 
@@ -56,7 +56,7 @@
                 android:layout_width="177dp"
                 android:layout_height="32dp"
                 android:layout_gravity="start"
-                app:srcCompat="@drawable/summary"
+                app:srcCompat="@drawable/newsummary"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="395dp" />
 
