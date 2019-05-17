@@ -26,22 +26,36 @@ public class playerAdapter  extends RecyclerView.Adapter<playerAdapter.playerAda
     public static class playerAdapterHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
         public TextView playerName;
-        public CheckBox box;
 
         public playerAdapterHolder(@NonNull View itemView, final playerAdapter.onItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             playerName = itemView.findViewById(R.id.playerName);
+            final ImageView check = itemView.findViewById(R.id.check);
+
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    boolean isVisible = false;
                     if(listener != null){
                         int postion = getAdapterPosition();
                         if(postion != RecyclerView.NO_POSITION){
                             listener.onItemClick(postion);
                         }
                     }
+
+                    if(isVisible){
+                        check.setVisibility(View.INVISIBLE);
+                        isVisible = false;
+                    }
+                    else
+                    {
+                        check.setVisibility(View.VISIBLE);
+                        isVisible = true;
+                    }
+
                 }
             });
         }
