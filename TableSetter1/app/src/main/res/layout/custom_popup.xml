@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#222"
+    android:background="#111"
     android:padding="5dp">
 
 
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
                 android:layout_gravity="center"
-                android:background="#333"
+                android:background="#222"
                 android:text="Summary Goes Here:"
                 android:lineSpacingExtra="10dp"
                 android:textColor="#fff"

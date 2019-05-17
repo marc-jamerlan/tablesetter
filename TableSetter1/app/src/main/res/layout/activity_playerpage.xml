@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333"
+    android:background="#111"
     tools:context=".playerpage">
 
     <include
@@ -146,13 +146,13 @@
                 tools:listitem="@layout/tagvieweritem"></android.support.v7.widget.RecyclerView>
 
             <Button
-                android:id="@+id/addTags2"
+                android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Tags" />
 
             <Button
-                android:id="@+id/addGame"
+                android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Games" />
