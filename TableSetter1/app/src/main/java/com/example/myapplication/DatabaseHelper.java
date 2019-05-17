@@ -306,7 +306,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     /***PLAYER TABLE METHODS***/
 
 
-    public void addPlayer(Player player)
+    public void addPlayerData(Player player)
     {
         ContentValues values = new ContentValues();
         values.put(COL2, player.getName());
