@@ -36,6 +36,9 @@ public class player_Game_Add extends AppCompatActivity {
             transferGame = new ArrayList<>();
         }
 
+        createlist();
+        createrecycler();
+
     }
 
     public void createlist()

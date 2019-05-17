@@ -41,6 +41,7 @@ public class playerpage extends AppCompatActivity {
         RecyclerView tags = findViewById(R.id.playertag);
         Button addTag = findViewById(R.id.addTags2);
         Button addGame = findViewById(R.id.addGame);
+        Button submit = findViewById(R.id.button3);
 
 
 
@@ -59,9 +60,22 @@ public class playerpage extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                open(Tag_Add.class);
+                open(player_Game_Add.class);
             }
         });
+
+        submit.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+               open(TitleScreen.class);
+            }
+        });
+
+
+
+
 
         Intent intent = getIntent();
 
