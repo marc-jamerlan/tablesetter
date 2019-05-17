@@ -41,17 +41,16 @@ public class playerpage extends AppCompatActivity {
         setContentView(R.layout.activity_playerpage);
 
 
-        EditText name = findViewById(R.id.editText3);
-        ImageButton addImage = findViewById(R.id.addImage2);
-        EditText notes = findViewById(R.id.editText4);
+        final EditText name = findViewById(R.id.editText3);
+        final ImageButton addImage = findViewById(R.id.addImage2);
+        final EditText notes = findViewById(R.id.editText4);
+        final DatabaseHelper dbHelper = new DatabaseHelper(this);
+
         RecyclerView games = findViewById(R.id.playergame);
         RecyclerView tags = findViewById(R.id.playertag);
         Button addTag = findViewById(R.id.addTags2);
         Button addGame = findViewById(R.id.addGame);
         Button submit = findViewById(R.id.button3);
-
-
-
 
         addTag.setOnClickListener(new View.OnClickListener()
         {
@@ -76,6 +75,18 @@ public class playerpage extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+               Player player = new Player();
+
+               player.setName(name.getText().toString());
+               player.setPlayerImage((imageToString(((BitmapDrawable)addImage.getDrawable()).getBitmap())));
+               player.setNotes(notes.getText().toString());
+
+               // TODO - set gameNameList and tagIDList
+
+                dbHelper.addPlayerData(player);
+
+                Toast.makeText(getApplicationContext(), "Player Added", Toast.LENGTH_SHORT).show();
+
                open(TitleScreen.class);
             }
         });
