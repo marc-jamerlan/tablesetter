@@ -108,7 +108,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/addnewtagheader" />
+        app:srcCompat="@drawable/addnewtagnewheader" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -124,21 +124,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/tagname" />
+        app:srcCompat="@drawable/newtagnameheader" />
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="112dp"
-        android:layout_height="37dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="168dp"
+        android:layout_height="53dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tagNameAdd"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/tagsummary" />
+        app:srcCompat="@drawable/newtagsummeryheader" />
 </android.support.constraint.ConstraintLayout>
