@@ -27,6 +27,10 @@ public class playerpage extends AppCompatActivity {
     private ArrayList<Game> catalog;
     private ArrayList<Tag> tagList;
 
+    // currently empty, pass from tag and game addition pages
+    private ArrayList<String> gameNameHolder;
+    private ArrayList<Integer> tagIDHolder;
+
     private RecyclerView mCatalogPlayer;
     private catalogAdapter mAdapterPlayer;
     private RecyclerView.LayoutManager mlayoutPlayer;
@@ -48,8 +52,8 @@ public class playerpage extends AppCompatActivity {
 
         RecyclerView games = findViewById(R.id.playergame);
         RecyclerView tags = findViewById(R.id.playertag);
-        Button addTag = findViewById(R.id.addTags2);
-        Button addGame = findViewById(R.id.addGame);
+        Button addTag = findViewById(R.id.button);
+        Button addGame = findViewById(R.id.button2);
         Button submit = findViewById(R.id.button3);
 
         addTag.setOnClickListener(new View.OnClickListener()
@@ -72,16 +76,16 @@ public class playerpage extends AppCompatActivity {
 
         submit.setOnClickListener(new View.OnClickListener()
         {
+            // add new player
             @Override
             public void onClick(View v)
             {
                Player player = new Player();
-
                player.setName(name.getText().toString());
                player.setPlayerImage((imageToString(((BitmapDrawable)addImage.getDrawable()).getBitmap())));
                player.setNotes(notes.getText().toString());
-
-               // TODO - set gameNameList and tagIDList
+               player.setGameNameList(gameNameHolder);
+               player.setTagIDList(tagIDHolder);
 
                 dbHelper.addPlayerData(player);
 
