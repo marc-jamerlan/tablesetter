@@ -15,6 +15,9 @@
     <item
         android:id="@+id/clear"
         android:title="Clear Entire Catalog" />
+    <item
+        android:id="@+id/clear2"
+        android:title="Clear Players Catalog" />
 
 
 </menu>

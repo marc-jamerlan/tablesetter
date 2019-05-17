@@ -61,6 +61,7 @@ public class Tag_Add extends AppCompatActivity {
                 TagObjectHolder.add(newTag);
                 dbHelper.addTagData(newTag);
                 // layout need to be let out
+                createrecycler();
                 mAdapter.notifyDataSetChanged();
             }
         });

@@ -30,9 +30,8 @@ public class playerAdapter  extends RecyclerView.Adapter<playerAdapter.playerAda
 
         public playerAdapterHolder(@NonNull View itemView, final playerAdapter.onItemClickListener listener) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.imageView11);
+            mImageView = itemView.findViewById(R.id.imageView);
             playerName = itemView.findViewById(R.id.playerName);
-            box = itemView.findViewById(R.id.checkBox);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -41,11 +40,6 @@ public class playerAdapter  extends RecyclerView.Adapter<playerAdapter.playerAda
                         int postion = getAdapterPosition();
                         if(postion != RecyclerView.NO_POSITION){
                             listener.onItemClick(postion);
-                        }
-                        if(box.isChecked()){
-                            box.setChecked(false);
-                        } else {
-                            box.setChecked(true);
                         }
                     }
                 }
