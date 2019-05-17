@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -25,11 +26,25 @@ public class playerAdapter  extends RecyclerView.Adapter<catalogAdapter.catalogA
     public static class catalogAdapterHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
         public TextView playerName;
+        public CheckBox box;
 
         public catalogAdapterHolder(@NonNull View itemView, final catalogAdapter.onItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView11);
             playerName = itemView.findViewById(R.id.playerName);
+            box = itemView.findViewById(R.id.checkBox);
+
+            box.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(box.isChecked()){
+                        box.setChecked(false);
+                    } else {
+                        box.setChecked(true);
+                    }
+
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -43,6 +58,8 @@ public class playerAdapter  extends RecyclerView.Adapter<catalogAdapter.catalogA
                 }
             });
         }
+
+
     }
 
     playerAdapter(ArrayList<Player> a){
@@ -70,6 +87,10 @@ public class playerAdapter  extends RecyclerView.Adapter<catalogAdapter.catalogA
     public int getItemCount() {
         return playerArrayList.size();
     }
+
+
+
+
 
 
 }
