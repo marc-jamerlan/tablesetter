@@ -26,6 +26,7 @@ public class gameRecommend extends AppCompatActivity {
 
     private ArrayList<Player> listOfplayers;
     private ArrayList<Player> recomenedpeople;
+    private ArrayList<Game> allGames;
     private ArrayList<Game> recomenedGames;
 
 
@@ -34,21 +35,65 @@ public class gameRecommend extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_recommend);
 
-        listOfplayers = new ArrayList<>();
         recomenedGames = new ArrayList<>();
         recomenedpeople = new ArrayList<>();
 
-        Button recomend = findViewById(R.id.button4);
+        createlist();
+
+        final Button recomend = findViewById(R.id.button4);
 
         listOfplayers = createPlayerArrayList();
 
+        if( listOfplayers == null){
+            listOfplayers = new ArrayList<>();
+        }
+
         createPlayerArrayList();
+
+
+
+        createrecyclerplayer();
 
         recomend.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                Game Recomend = null;
+                int score = -1;
+                Game temp;
+                int tempScore;
+                for(int i = 0; i < allGames.size(); i++){
+                    tempScore = 0;
+                    temp = allGames.get(i);
+                    for(int j = 0; j < listOfplayers.size(); j++){
+                        if(listOfplayers.get(j).getGameNameList().contains(temp.getName())){
+                            tempScore += 5;
+                        }
+                        for(int k = 0;k <listOfplayers.get(j).getTagIDList().size(); k++){
+                            if(temp.getTagIDList().contains(listOfplayers.get(j).getSingleTag(k))){
+                                tempScore += 3;
+                            }
+                        }
+
+                    }
+
+                    if(tempScore >= score){
+                        score = tempScore;
+                        Recomend = temp;
+                    }
+
+
+
+                }
+
+                if(score != -1 && Recomend != null){
+                    recomenedGames.add(Recomend);
+                    createrecyclergame();
+                }
+
+
+
 
             }
         });
@@ -57,6 +102,34 @@ public class gameRecommend extends AppCompatActivity {
 
 
     }
+
+    public void createlist()
+    {
+        //this is for the catalog
+
+        GameNameList gameNameList = new GameNameList();
+
+        String tableData = dbHelper.loadGameData();
+
+        if (!tableData.equals(""))
+        {
+            String[] tableArray = tableData.split(";");
+
+            for (int i = 0; i < tableArray.length; i++)
+            {
+                gameNameList.appendList(tableArray[i]);
+            }
+        }
+
+        allGames = new ArrayList<>();
+
+        for (int i = 0; i < gameNameList.getLength(); i++)
+        {
+            Game currentGame = dbHelper.fetchGameData(gameNameList.getGameNameList().get(i));
+            allGames.add(currentGame);
+        }
+    }
+
 
     public void createrecyclerplayer()
     {
