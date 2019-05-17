@@ -33,28 +33,24 @@ public class playerAdapter  extends RecyclerView.Adapter<playerAdapter.playerAda
             playerName = itemView.findViewById(R.id.playerName);
             final ImageView check = itemView.findViewById(R.id.check);
 
-
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    boolean isVisible = false;
-                    if(listener != null){
+
+                    if (listener != null) {
                         int postion = getAdapterPosition();
-                        if(postion != RecyclerView.NO_POSITION){
+                        if (postion != RecyclerView.NO_POSITION) {
                             listener.onItemClick(postion);
                         }
                     }
 
-                    if(isVisible){
+                    if (check.getVisibility() == View.VISIBLE) {
                         check.setVisibility(View.INVISIBLE);
-                        isVisible = false;
-                    }
-                    else
+                    } else
                     {
                         check.setVisibility(View.VISIBLE);
-                        isVisible = true;
                     }
+
 
                 }
             });
