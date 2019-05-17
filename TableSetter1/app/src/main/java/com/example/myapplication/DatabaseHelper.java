@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
@@ -320,11 +322,23 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
     }
 
-    //TODO
-
     public String loadPlayerData()
     {
-        return "";
+        String result = "";
+        String query = "Select*FROM " + PLAYER_TABLE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext())
+        {
+            int result0 = cursor.getInt(0);
+            //String result1 = cursor.getString(1);
+            result += result0 + ";";
+        }
+
+        cursor.close();
+        db.close();
+        return result;
     }
 
     public void clearPlayerData()
@@ -366,9 +380,18 @@ public class DatabaseHelper extends SQLiteOpenHelper
             player.setName(cursor.getString(1));
             player.setPlayerImage(cursor.getString(2));
 
-            // TODO - fetch gameNameList
+            String gameNameListString = cursor.getString(3);
+            ArrayList<String> gameNameList = new ArrayList<>();
 
-            String tagListString = cursor.getString(3);
+            if(gameNameListString != null)
+            {
+                String[] gameNameArray = gameNameListString.split(";");
+                List<String> newList = Arrays.asList(gameNameArray);
+                gameNameList.addAll(newList);
+            }
+            player.setGameNameList(gameNameList);
+
+            String tagListString = cursor.getString(4);
             ArrayList<Integer> tagIDList = new ArrayList<>();
             if (tagListString != null)
             {
@@ -386,7 +409,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 }
             }
             player.setTagIDList(tagIDList);
-            player.setNotes(cursor.getString(4));
+            player.setNotes(cursor.getString(5));
 
             cursor.close();
         }

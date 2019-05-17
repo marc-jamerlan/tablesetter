@@ -41,7 +41,7 @@ public class TitleScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                // TODO - recommend page
+                open(gameRecommend.class);
             }
         });
     }
