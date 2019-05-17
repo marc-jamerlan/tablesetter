@@ -33,6 +33,8 @@ public class playerAdapter  extends RecyclerView.Adapter<playerAdapter.playerAda
             playerName = itemView.findViewById(R.id.playerName);
             final ImageView check = itemView.findViewById(R.id.check);
 
+            check.setVisibility(View.INVISIBLE);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

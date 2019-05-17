@@ -33,6 +33,9 @@ public class playernoclickAdapter extends RecyclerView.Adapter<playernoclickAdap
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             playerName = itemView.findViewById(R.id.playerName);
+            final ImageView check = itemView.findViewById(R.id.check);
+
+            check.setVisibility(View.INVISIBLE);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
