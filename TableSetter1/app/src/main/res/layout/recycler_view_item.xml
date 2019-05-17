@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:layout_marginBottom="4dp"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="10dp"
 
     >
 
-  <LinearLayout
-      android:id="@+id/gameEntery"
+  <android.support.v7.widget.CardView
       android:layout_width="368dp"
       android:layout_height="84dp"
       android:layout_marginStart="8dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginEnd="8dp"
-      android:background="#222"
-      android:orientation="horizontal"
-      android:visibility="visible"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="21dp"
+      app:cardBackgroundColor="#222"
+      app:cardCornerRadius="10dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:layout_width="102dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <TextView
+          android:id="@+id/gameName"
+          android:layout_width="139dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:layout_alignParentEnd="true"
+          android:layout_alignParentBottom="true"
+          android:layout_marginStart="55dp"
+          android:layout_marginLeft="56dp"
+          android:layout_marginTop="26dp"
+          android:layout_marginEnd="72dp"
+          android:layout_marginBottom="25dp"
+          android:layout_toEndOf="@+id/imageView"
+          android:fontFamily="@font/ring"
+          android:gravity="center"
+          android:text="Game Title"
+          android:textColor="#fff"
+          android:textSize="24sp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.796"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.509" />
 
       <ImageView
           android:id="@+id/imageView"
+          android:layout_width="102dp"
+          android:layout_height="match_parent"
           android:background="@android:color/transparent"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
           app:srcCompat="@mipmap/ic_launcher" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="266dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="41dp"
-          android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/gameName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Game Title"
-            android:fontFamily="@font/ring"
-            android:textColor="#fff" />
-      </LinearLayout>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"/>
-
-    </LinearLayout>
-
-  </LinearLayout>
+  </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>
