@@ -3,20 +3,26 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+import android.widget.EditText;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class playerpage extends AppCompatActivity {
+    private static int RESULT_LOAD_IMAGE = 1;
 
     private ArrayList<Game> catalog;
     private ArrayList<Tag> tagList;
@@ -33,6 +39,7 @@ public class playerpage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playerpage);
+
 
         EditText name = findViewById(R.id.editText3);
         ImageButton addImage = findViewById(R.id.addImage2);
@@ -70,6 +77,16 @@ public class playerpage extends AppCompatActivity {
             public void onClick(View v)
             {
                open(TitleScreen.class);
+            }
+        });
+
+        addImage.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
 
@@ -142,16 +159,6 @@ public class playerpage extends AppCompatActivity {
 
     }
 
-
-    public String imageToString(Bitmap bm)
-    {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
-    }
-
     public void open(Class des)
     {
         Intent intent = new Intent(this, des);
@@ -160,8 +167,6 @@ public class playerpage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // TODO - use startActivityforResult() when requesting image, see add_andor_edit.class
-    /*
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -173,8 +178,8 @@ public class playerpage extends AppCompatActivity {
             try
             {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                Toast.makeText(Add_andor_edit.this, "Uploaded Image", Toast.LENGTH_SHORT).show();
-                ImageButton addImage = (ImageButton) findViewById(R.id.addImage1);
+                Toast.makeText(playerpage.this, "Uploaded Image", Toast.LENGTH_SHORT).show();
+                ImageButton addImage = (ImageButton) findViewById(R.id.addImage2);
                 addImage.getLayoutParams().height = 350;
                 addImage.getLayoutParams().width = 350;
                 addImage.requestLayout();
@@ -184,9 +189,18 @@ public class playerpage extends AppCompatActivity {
             } catch (IOException e)
             {
                 e.printStackTrace();
-                Toast.makeText(Add_andor_edit.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(playerpage.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    */
+
+    public String imageToString(Bitmap bm)
+    {
+        ByteArrayOutputStream  baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
 }
