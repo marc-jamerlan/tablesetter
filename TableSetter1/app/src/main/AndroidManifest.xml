@@ -14,10 +14,11 @@
         android:roundIcon="@drawable/tsicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".gameRecommend"></activity>
+        <activity android:name=".gameRecommend" />
         <activity android:name=".player_Game_Add" />
-        <activity android:name=".playerTagAdd"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".playerTagAdd"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".TitleScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,8 +40,10 @@
             android:label="TableSetter"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".playerpage" />
-        <activity android:name=".player_add"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".player_add"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".playerCatolog"></activity>
     </application>
 
 </manifest>
