@@ -1,11 +1,15 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -35,9 +39,41 @@ public class playerpage extends AppCompatActivity {
         EditText notes = findViewById(R.id.editText4);
         RecyclerView games = findViewById(R.id.playergame);
         RecyclerView tags = findViewById(R.id.playertag);
+        Button addTag = findViewById(R.id.addTags2);
+        Button addGame = findViewById(R.id.addGame);
 
-        this.catalog = new ArrayList<>();
-        this.tagList = new ArrayList<>();
+
+
+
+        addTag.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                open(playerTagAdd.class);
+            }
+        });
+
+        addGame.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                open(Tag_Add.class);
+            }
+        });
+
+        Intent intent = getIntent();
+
+        this.tagList = intent.getParcelableArrayListExtra("Tag");
+        this.catalog = intent.getParcelableArrayListExtra("Game");
+
+        if(this.catalog == null){
+            this.catalog = new ArrayList<>();
+        }
+        if(this.tagList == null){
+            this.tagList = new ArrayList<>();
+        }
 
         createrecyclerPlayer();
         createrecyclerTag();
@@ -100,6 +136,14 @@ public class playerpage extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
 
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
+    public void open(Class des)
+    {
+        Intent intent = new Intent(this, des);
+        intent.putParcelableArrayListExtra("Tag",this.tagList);
+        intent.putParcelableArrayListExtra("Game",this.catalog);
+        startActivity(intent);
     }
 
     // TODO - use startActivityforResult() when requesting image, see add_andor_edit.class

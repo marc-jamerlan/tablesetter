@@ -31,7 +31,7 @@ public class TitleScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                open(player_add.class);
+                open(playerpage.class);
             }
         });
 
