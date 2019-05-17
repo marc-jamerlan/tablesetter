@@ -79,8 +79,12 @@ public class playerAdapter  extends RecyclerView.Adapter<catalogAdapter.catalogA
     public void onBindViewHolder(@NonNull catalogAdapter.catalogAdapterHolder catalogAdapterHolder, int i) {
         Player currentplayer = playerArrayList.get(i);
 
-        catalogAdapterHolder.mImageView.setImageBitmap(currentplayer.decodeGameImage());
-        catalogAdapterHolder.gameName.setText(currentplayer.getName());
+        if(currentplayer != null){
+            catalogAdapterHolder.mImageView.setImageBitmap(currentplayer.decodeGameImage());
+            catalogAdapterHolder.gameName.setText(currentplayer.getName());
+        }
+
+
     }
 
 
