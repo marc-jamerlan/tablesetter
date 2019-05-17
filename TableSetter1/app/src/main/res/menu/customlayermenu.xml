@@ -6,6 +6,7 @@
         android:id="@+id/addplayer"
         android:title="Add A New Player" />
     <item
-        android:id="@+id/menu"
-        android:title="Return To Menu" />
+        android:id="@+id/home"
+        android:title="Back to Home" />
+    <item android:title="Clear Player Catalog" />
 </menu>

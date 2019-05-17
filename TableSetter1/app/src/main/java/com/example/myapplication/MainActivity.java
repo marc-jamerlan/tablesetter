@@ -227,9 +227,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 mAdapter.notifyDataSetChanged();
                 return true;
 
-            case R.id.clear2:
-                Toast.makeText(this, "Cleared players", Toast.LENGTH_SHORT).show();
-                dbHelper.clearPlayerData();
 
             default:
                 return false;

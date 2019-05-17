@@ -73,7 +73,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp"
                 android:fontFamily="@font/ring"
-                android:text="Add Players"
+                android:text="Players"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 tools:text="Add Players" />
