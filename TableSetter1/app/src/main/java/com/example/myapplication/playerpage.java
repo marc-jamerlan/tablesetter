@@ -105,7 +105,8 @@ public class playerpage extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
@@ -187,17 +188,20 @@ public class playerpage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null)
         {
-            Uri selectedImage = data.getData();
+            //Uri selectedImage = data.getData();
+            Bundle extras = data.getExtras();
 
             try
             {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                //Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                Bitmap bitmap = (Bitmap) extras.get("data");
                 Toast.makeText(playerpage.this, "Uploaded Image", Toast.LENGTH_SHORT).show();
                 ImageButton addImage = (ImageButton) findViewById(R.id.addImage2);
                 addImage.getLayoutParams().height = 350;
@@ -206,13 +210,14 @@ public class playerpage extends AppCompatActivity {
 
                 addImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 350, 350, false));
 
-            } catch (IOException e)
+            } catch (NullPointerException e) //IOException for gallery image creation
             {
                 e.printStackTrace();
                 Toast.makeText(playerpage.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 
     public String imageToString(Bitmap bm)
     {
