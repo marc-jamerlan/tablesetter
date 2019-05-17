@@ -49,7 +49,8 @@ public class Add_andor_edit extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
@@ -206,11 +207,13 @@ public class Add_andor_edit extends AppCompatActivity
 
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null)
         {
-            Uri selectedImage = data.getData();
+            //Uri selectedImage = data.getData();
+            Bundle extras = data.getExtras();
 
             try
             {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                //Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                Bitmap bitmap = (Bitmap) extras.get("data");
                 Toast.makeText(Add_andor_edit.this, "Uploaded Image", Toast.LENGTH_SHORT).show();
                 ImageButton addImage = (ImageButton) findViewById(R.id.addImage1);
                 addImage.getLayoutParams().height = 350;
@@ -219,7 +222,7 @@ public class Add_andor_edit extends AppCompatActivity
 
                 addImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 350, 350, false));
 
-            } catch (IOException e)
+            } catch (NullPointerException e) //IOException for gallery image creation
             {
                 e.printStackTrace();
                 Toast.makeText(Add_andor_edit.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
