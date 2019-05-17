@@ -14,9 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".recomendation"></activity>
         <activity android:name=".player_Game_Add" />
         <activity android:name=".playerTagAdd" />
+=======
+        <activity android:name=".gameRecommend"></activity>
+>>>>>>> f5d43ac556200412aef93a83c3ac55e0dd8934a3
         <activity android:name=".TitleScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +40,11 @@
         <activity
             android:name=".MainActivity"
             android:label="TableSetter"
+<<<<<<< HEAD
             android:theme="@style/AppTheme.NoActionBar" />
+=======
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> f5d43ac556200412aef93a83c3ac55e0dd8934a3
         <activity android:name=".playerpage" />
         <activity android:name=".player_add" />
     </application>
