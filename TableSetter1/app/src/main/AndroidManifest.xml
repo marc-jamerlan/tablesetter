@@ -38,7 +38,8 @@
             android:label="TableSetter"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".playerpage" />
-        <activity android:name=".player_add" />
+        <activity android:name=".player_add"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

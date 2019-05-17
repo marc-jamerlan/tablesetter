@@ -9,7 +9,10 @@
         android:id="@+id/tagnameA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/tagstyle"
+        android:background="@drawable/tagbackground3"
         android:text="TextView"
-        android:textColor="#000" />
+        android:fontFamily="@font/ring"
+        android:textColor="#fff"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 </android.support.constraint.ConstraintLayout>

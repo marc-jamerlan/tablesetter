@@ -48,8 +48,8 @@ public class playerpage extends AppCompatActivity {
 
         RecyclerView games = findViewById(R.id.playergame);
         RecyclerView tags = findViewById(R.id.playertag);
-        Button addTag = findViewById(R.id.addTags2);
-        Button addGame = findViewById(R.id.addGame);
+        Button addTag = findViewById(R.id.button);
+        Button addGame = findViewById(R.id.button2);
         Button submit = findViewById(R.id.button3);
 
         addTag.setOnClickListener(new View.OnClickListener()
