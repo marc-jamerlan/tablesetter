@@ -44,6 +44,11 @@ public class playerpage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playerpage);
 
+        gameNameHolder = new ArrayList<>();
+        tagIDHolder = new ArrayList<>();
+        catalog = new ArrayList<>();
+        tagList = new ArrayList<>();
+
 
         final EditText name = findViewById(R.id.editText3);
         final ImageButton addImage = findViewById(R.id.addImage2);
