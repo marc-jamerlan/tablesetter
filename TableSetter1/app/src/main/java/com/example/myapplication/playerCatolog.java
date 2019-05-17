@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class playerCatolog extends AppCompatActivity {
+public class playerCatolog extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private ArrayList<Player> catalog;
     private RecyclerView mCatalog;
@@ -79,6 +81,14 @@ public class playerCatolog extends AppCompatActivity {
     {
         Intent intent = new Intent(this, des);
         startActivity(intent);
+    }
+
+    public void openPopup(View v)
+    {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.customlayermenu);
+        popupMenu.show();
     }
 
    public boolean onMenuItemClick(MenuItem item)
