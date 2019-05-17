@@ -35,13 +35,13 @@ public class TitleScreen extends AppCompatActivity
             }
         });
 
-        CardView recommendCard = findViewById(R.id.recommendCard);
+        final CardView recommendCard = findViewById(R.id.recommendCard);
         recommendCard.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                // TODO - recommend page
+                open(recomendation.class);
             }
         });
     }
