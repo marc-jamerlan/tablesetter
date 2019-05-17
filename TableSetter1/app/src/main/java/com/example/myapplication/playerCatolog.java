@@ -12,7 +12,7 @@ public class playerCatolog extends AppCompatActivity {
 
     private ArrayList<Player> catalog;
     private RecyclerView mCatalog;
-    private catalogAdapter mAdapter;
+    private  playernoclickAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
 
     final DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -22,21 +22,30 @@ public class playerCatolog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_catolog);
         //playerView
+        catalog = createPlayerArrayList();
+        if (catalog == null){
+            catalog = new ArrayList<>();
+        }
+
+        createrecycler();
+
+
+
     }
 
     public void createrecycler()
     {
         //recycleview is here
 
-        mCatalog = findViewById(R.id.recylceview);
+        mCatalog = findViewById(R.id.playerView);
         mCatalog.setHasFixedSize(true);
         mLayout = new LinearLayoutManager(this);
-        mAdapter = new catalogAdapter(catalog);
+        mAdapter = new  playernoclickAdapter(catalog);
 
         mCatalog.setLayoutManager(mLayout);
         mCatalog.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new catalogAdapter.onItemClickListener()
+        mAdapter.setOnItemClickListener(new playernoclickAdapter.onItemClickListener()
         {
             @Override
             public void onItemClick(int itemPos)

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class playernoclickAdapter extends RecyclerView.Adapter<playerAdapter.playerAdapterHolder>  {
+public class playernoclickAdapter extends RecyclerView.Adapter<playernoclickAdapter.playernoclickAdapterHolder>  {
 
     private ArrayList<Player> playerArrayList;
     private playernoclickAdapter.onItemClickListener mListener;
@@ -31,9 +31,9 @@ public class playernoclickAdapter extends RecyclerView.Adapter<playerAdapter.pla
 
         public playernoclickAdapterHolder(@NonNull View itemView, final playernoclickAdapter.onItemClickListener listener) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.imageView11);
+            mImageView = itemView.findViewById(R.id.imageView);
             playerName = itemView.findViewById(R.id.playerName);
-            box = itemView.findViewById(R.id.checkBox);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -43,11 +43,7 @@ public class playernoclickAdapter extends RecyclerView.Adapter<playerAdapter.pla
                         if(postion != RecyclerView.NO_POSITION){
                             listener.onItemClick(postion);
                         }
-                        if(box.isChecked()){
-                            box.setChecked(false);
-                        } else {
-                            box.setChecked(true);
-                        }
+
                     }
                 }
             });
